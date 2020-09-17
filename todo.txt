@@ -1,0 +1,20 @@
+- print 10 items to screen
+	- thumbnail
+	- title
+	- runtime
+
+// - randomize results?
+
+- embed map
+	- see if can get directions from map
+
+- CSS first pass
+
+- multi-genre
+
+-List
+
+- Extra search parameters
+
+
+- Firebase API storage

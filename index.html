@@ -15,37 +15,48 @@
 		<div class="wrapper">
 			
 	    <div class="topBar">
+				<!-- Main Heading -->
 				<h1>Travel<span>tainment</span></h1>
 						
-					<form class="searchForm" action="#">
-						<label for="travelHours" class="sr-only">Hours</label>
-						<input type="text" id="travelHours" name="travelHours" placeholder="Hours">
-					
-						<label for="travelMinutes" class="sr-only">Minutes</label>
-						<input type="text" id="travelMinutes" name="travelMinutes" placeholder="Minutes">
-					
-						<label class="searchForm__label" for="movie">Movie</label>
-						<input class="searchForm__input" type="radio" name="media" id="movie" value="movie" checked>
-					
-						<label class="searchForm__label" for="tv">TV</label>
-						<input class="searchForm__input" type="radio" name="media" id="tv" value="tv">
-					
-						<button class="searchForm__submit" type="submit">Search</button>
-					</form>
+				<!-- Main search form -->
+				<form class="searchForm" action="#">
+					<!-- Hours -->
+					<label for="travelHours" class="sr-only">Hours</label>
+					<input type="number" id="travelHours" name="travelHours" placeholder="Hours">
+				
+					<!-- Minutes -->
+					<label for="travelMinutes" class="sr-only">Minutes</label>
+					<input type="number" id="travelMinutes" name="travelMinutes" placeholder="Minutes">
+				
+					<!-- Movies -->
+					<label class="searchForm__label" for="movie">Movie</label>
+					<input class="searchForm__input" type="radio" name="media" id="movie" value="movie" checked>
+				
+					<!-- TV -->
+					<label class="searchForm__label" for="tv">TV</label>
+					<input class="searchForm__input" type="radio" name="media" id="tv" value="tv">
+				
+					<!-- Submit -->
+					<button class="searchForm__submit" type="submit">Search</button>
+				</form>
 			</div>
 			
+			<!-- Directions -->
 			<div class="directions">
 				<form class="directionsForm" action="#">
+					<!-- Origin -->
 					<div>
 						<label for="origin" class="sr-only">Origin</label>
-						<input type="text" name="origin" id="origin" placeholder="Origin">
+						<input type="text" name="origin" id="origin" placeholder="Origin" required>
 					</div>
 				
+					<!-- Destination -->
 					<div>
 						<label for="destination" class="sr-only">Destination</label>
-						<input type="text" name="destination" id="destination" placeholder="Destination">
+						<input type="text" name="destination" id="destination" placeholder="Destination"  required>
 					</div>
 				
+					<!-- Travel Mode -->
 					<div>
 						<label for="travelMode" class="sr-only">Travel mode</label>
 						<select name="travelMode" id="travelMode">
@@ -56,7 +67,8 @@
 							<option value="flying">Flying</option>
 						</select>
 					</div>
-				
+			
+					<!-- Submit -->
 					<button type="submit">Submit</button>
 				</form>
 			</div>

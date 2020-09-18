@@ -26,9 +26,15 @@ Search for a TV Show - /search/tv/?query={search string}
 app.getMediaData = function(path, extraData = {}) {
 	const data = {
 		api_key: app.movieApiKey,
+		language: "en-US",
 		page: 1,
 		...extraData
 	} 
+
+	// console.log({extraData});
+	// console.table({path, data});
+
+	// console.log(app.movieApi + path);
 	
 	return $.ajax({
 		url: app.movieApi + path,
@@ -43,11 +49,13 @@ app.getMediaData('disover/movie', )
 /**
  * Make request to moviedb api
  */
-app.getMovieData = function(type) {
+app.getMovieData = function(type, searchFilter = {}) {
 	const path = 'discover/' + type;
 
+	console.table('getmoviedata call', searchFilter);
+
 	// get media results from /discover/[movie | tv]
-	app.getMediaData(path)
+	app.getMediaData(path, searchFilter)
 		// then make api calls for each of the results returned by the initial call
 		.then(response => {
 			// store array of media results
@@ -59,9 +67,29 @@ app.getMovieData = function(type) {
 			// wait for all the api calls (promises) to be completed
 			$.when(...mediaResultsDetail)
 				.then((...results) => {
-					const mediaDetails = results.map(media => media[0]);
+					const mediaDetails = results.map(media => media[0])
+					
+					if (searchFilter["with_runtime.lte"]) {
+						const travelTime = searchFilter["with_runtime.lte"];
+						console.log('filter travel time', travelTime);
+						
+						const filterMedia = mediaDetails.filter(({runtime, episode_run_time}) => {
+							console.log(runtime, episode_run_time[0]);
+							
+							// TODO fix if epside_run_time is underfined jquery will stop as it 
+							const mediaRuntime = runtime ? runtime : episode_run_time[0]; 
+							
+							console.log('mediaruntime', mediaRuntime)
+							return travelTime >= mediaRuntime  && mediaRuntime > 0
+						});
 
-					app.displayMovieData(mediaDetails);
+						console.log(filterMedia);
+						app.displayMovieData(filterMedia);
+					} else {
+
+						app.displayMovieData(mediaDetails);
+					}
+
 				});
 
 
@@ -150,6 +178,7 @@ app.displayMovieData = (results) => {
 	console.log(newArray);
 };
 
+// &with_runtime.gte=5&with_runtime.lte=10
 
 
 /*
@@ -174,7 +203,7 @@ vote_count: 16
 app.movieImageUrl = "https://image.tmdb.org/t/p/w500/w6e0XZreiyW4mGlLRHEG8ipff7b.jpg" + ;
 */
 
-// &with_runtime.gte=5&with_runtime.lte=10
+
 
 /**
  * Add event listeners
@@ -190,18 +219,33 @@ app.setEventListeners = () => {
 
 		console.log('form submitted');
 		
-		const hours = parseInt($hourInput.val());
-		const minutes = parseInt($minuteInput.val());
+		const hours = parseInt($hourInput.val()) || 0;
+		const minutes = parseInt($minuteInput.val()) || 0;
 
 		const time = (hours * 60) + minutes;
-		console.log(time);
-
+		// console.log('hours', hours);
+		// console.log('minutes', minutes);
+		// console.log('time', time);
+		// console.log(typeof time);
 		const type = $mediaType.val();
+		cant acces [0]
 
+		// &with_runtime.gte=5&with_runtime.lte=10
+
+		const searchFilter = {};
+		if (time) { 
+			searchFilter["with_runtime.lte"] = time; 
+			console.table(searchFilter);
+		}
+
+		
+		console.log(searchFilter);
 		// console.log({time, type});
-		app.getMovieData(type);
+		app.getMovieData(type, searchFilter);
   })
 
+
+	// display map on directions submit
 	$('.directionsForm').on('submit', function(e) {
 		e.preventDefault();
 

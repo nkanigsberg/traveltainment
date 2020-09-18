@@ -297,6 +297,10 @@ h1 span {
   font-family: "Abel", sans-serif;
 }
 
+h2 {
+  font-size: 2rem;
+}
+
 .wrapper {
   margin: 0 auto;
   width: 85%;
@@ -305,6 +309,18 @@ h1 span {
 
 body {
   background-color: #f3f2f0;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
 }
 
 .topBar {

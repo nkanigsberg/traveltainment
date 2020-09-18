@@ -3,62 +3,83 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Traveltainment</title>
+	<title>Traveltainment</title>
+	<!-- google fonts -->
+	<link href="https://fonts.googleapis.com/css2?family=Abel&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+	<!-- stylesheet -->
+	<link rel="stylesheet" href="./styles/style.css">
 </head>
 <body>
 	<!-- header -->
   <header>
-    <h1>Traveltainment</h1>
-    
+		<div class="wrapper">
+			
+	    <div class="topBar">
+				<h1>Travel<span>tainment</span></h1>
+						
+					<form class="searchForm" action="#">
+						<label for="travelHours" class="sr-only">Hours</label>
+						<input type="text" id="travelHours" name="travelHours" placeholder="Hours">
+					
+						<label for="travelMinutes" class="sr-only">Minutes</label>
+						<input type="text" id="travelMinutes" name="travelMinutes" placeholder="Minutes">
+					
+						<label class="searchForm__label" for="movie">Movie</label>
+						<input class="searchForm__input" type="radio" name="media" id="movie" value="movie" checked>
+					
+						<label class="searchForm__label" for="tv">TV</label>
+						<input class="searchForm__input" type="radio" name="media" id="tv" value="tv">
+					
+						<button class="searchForm__submit" type="submit">Search</button>
+					</form>
+			</div>
+			
+			<div class="directions">
+				<form class="directionsForm" action="#">
+					<div>
+						<label for="origin" class="sr-only">Origin</label>
+						<input type="text" name="origin" id="origin" placeholder="Origin">
+					</div>
+				
+					<div>
+						<label for="destination" class="sr-only">Destination</label>
+						<input type="text" name="destination" id="destination" placeholder="Destination">
+					</div>
+				
+					<div>
+						<label for="travelMode" class="sr-only">Travel mode</label>
+						<select name="travelMode" id="travelMode">
+							<option value="driving">Driving</option>
+							<option value="walking">Walking</option>
+							<option value="bicycling">Bicycling</option>
+							<option value="transit">Transit</option>
+							<option value="flying">Flying</option>
+						</select>
+					</div>
+				
+					<button type="submit">Submit</button>
+				</form>
+			</div>
+
+
+
+		</div>
   </header>
 
 	<!-- main -->
 	<main>
-		<form class="searchForm" action="#">
-			<label for="travelHours"></label>
-			<input type="text" id="travelHours" name="travelHours" placeholder="Hours">
+		<div class="wrapper">
+				
 
-			<label for="travelMinutes"></label>
-			<input type="text" id="travelMinutes" name="travelMinutes" placeholder="Minutes">
-			
-			<label class="searchForm__label" for="movie">Movie</label>
-			<input class="searchForm__input" type="radio" name="media" id="movie" value="movie" checked>
-			
-      <label class="searchForm__label" for="tv">TV</label>
-      <input class="searchForm__input" type="radio" name="media" id="tv" value="tv">
-    
-      <button class="searchForm__submit" type="submit">Search</button>
-		</form>
-		
-		<form class="directionsForm" action="#">
-			<label for="origin">Origin</label>
-			<input type="text" name="origin" id="origin">
-			<label for="destination">Destination</label>
-			<input type="text" name="destination" id="destination">
-			<button type="submit">Submit</button>
-			<label for="travelMode">Travel mode</label>
-			<select name="travelMode" id="travelMode">
-				<option value="driving">Driving</option>
-				<option value="walking">Walking</option>
-				<option value="bicycling">Bicycling</option>
-				<option value="transit">Transit</option>
-				<option value="flying">Flying</option>
-			</select>
-		</form>
+			<div class="map">
+				<!-- google map generated here -->
+			</div>
 
-		
-
-		<div class="map">
+			<section class="mediaResults">
+				<!-- media results generated here -->
+			</section>
 
 		</div>
-
-		<section class="mediaResults">
-
-
-		</section>
-
-
-
 	</main>
 
 	<!-- footer -->

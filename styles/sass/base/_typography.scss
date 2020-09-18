@@ -1,0 +1,12 @@
+body {
+	font-family: $primaryFont;
+}
+
+h1 {
+	// font-family: $secondaryFont;
+	font-size: 3rem;
+
+	span {
+		font-family: $secondaryFont;
+	}
+}

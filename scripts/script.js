@@ -70,27 +70,42 @@ app.getMovieData = function(type, searchFilter = {}) {
 			// wait for all the api calls (promises) to be completed
 			$.when(...mediaResultsDetail)
 				.then((...results) => {
-					const mediaDetails = results.map(media => media[0])
-					
-					if (searchFilter["with_runtime.lte"]) {
-						const travelTime = searchFilter["with_runtime.lte"];
-						console.log('filter travel time', travelTime);
-						
-						const filterMedia = mediaDetails.filter(({runtime, episode_run_time}) => {
+					const mediaDetails = results
+						// return array with the media details
+						.map(media => media[0])
+						// return array with results that have a runtime greater than 0
+						.filter(({runtime, episode_run_time}) => {
 							console.log(runtime, episode_run_time);
 							const mediaRuntime = type === "movie" ? runtime : episode_run_time[0]; 
-							
+							// if user inputs travel time, return results that are less than or equal to the submitted trabel time
+							if (searchFilter["with_runtime.lte"]) {
+								const travelTime = searchFilter["with_runtime.lte"];
+								return travelTime >= mediaRuntime  && mediaRuntime > 0
+							}
+
 							console.log('mediaruntime', mediaRuntime)
-							return travelTime >= mediaRuntime  && mediaRuntime > 0
+							return mediaRuntime > 0
 						});
+					
+					// if (searchFilter["with_runtime.lte"]) {
+					// 	const travelTime = searchFilter["with_runtime.lte"];
+					// 	console.log('filter travel time', travelTime);
+						
+					// 	const filterMedia = mediaDetails.filter(({runtime, episode_run_time}) => {
+					// 		console.log(runtime, episode_run_time);
+					// 		const mediaRuntime = type === "movie" ? runtime : episode_run_time[0]; 
+							
+					// 		console.log('mediaruntime', mediaRuntime)
+					// 		return travelTime >= mediaRuntime  && mediaRuntime > 0
+					// 	});
 
-						console.log(filterMedia);
-						app.displayMovieData(filterMedia);
-					} else {
+					// 	console.log(filterMedia);
+					// 	app.displayMovieData(filterMedia);
+					// } else {
 
-						app.displayMovieData(mediaDetails);
-					}
-
+						// }
+						
+							app.displayMovieData(mediaDetails);
 				});
 
 

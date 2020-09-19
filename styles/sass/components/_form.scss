@@ -14,7 +14,7 @@ form {
 	input[type="text"] {
     width: 100%;
     border: 2px solid gray; 
-    background: none;
+    background-color: white;
     position: relative;
     top: 0;
     left: 0;
@@ -42,7 +42,7 @@ form {
     }
 	}
 	
-  .label__float {
+  input:placeholder-shown + .label__float {
     transition: // not padding
       background 0.2s,
       color 0.2s,

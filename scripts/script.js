@@ -3,6 +3,11 @@ const app = {}
 app.movieApi = "https://api.themoviedb.org/3/";
 app.movieApiKey = "993e3f1a5ab9378c732a3cf32f8a2988";
 app.movieImageUrl = "https://image.tmdb.org/t/p/w500";
+app.genres = {
+	movie: [],
+	tv: []
+}
+
 
 /*
 Movie Calls
@@ -44,8 +49,6 @@ app.getMediaData = function(path, extraData = {}) {
 	})
 }
 
-app.getMediaData('disover/movie', )
-
 /**
  * Make request to moviedb api
  */
@@ -74,10 +77,8 @@ app.getMovieData = function(type, searchFilter = {}) {
 						console.log('filter travel time', travelTime);
 						
 						const filterMedia = mediaDetails.filter(({runtime, episode_run_time}) => {
-							console.log(runtime, episode_run_time[0]);
-							
-							// TODO fix if epside_run_time is underfined jquery will stop as it 
-							const mediaRuntime = runtime ? runtime : episode_run_time[0]; 
+							console.log(runtime, episode_run_time);
+							const mediaRuntime = type === "movie" ? runtime : episode_run_time[0]; 
 							
 							console.log('mediaruntime', mediaRuntime)
 							return travelTime >= mediaRuntime  && mediaRuntime > 0
@@ -167,9 +168,11 @@ app.displayMovieData = (results) => {
 		const imageSrc = app.movieImageUrl + backdrop_path;
 
 		$mediaResults.append(`
+			<div class="mediaResults__container">
 			<h2>${mediaTitle}</h2>
-			<img src=${imageSrc} alt=${mediaTitle}>
+			<img src=${imageSrc} alt="${mediaTitle}">
 			<p>${timeString}</p>
+			<div>
 		`);
 
 	});
@@ -216,6 +219,7 @@ app.setEventListeners = () => {
 		const $minuteInput = $('#travelMinutes');
 
 		const $mediaType = $('input[name="media"]:checked');
+		const genre = $('#genres').val();
 
 		console.log('form submitted');
 		
@@ -223,12 +227,8 @@ app.setEventListeners = () => {
 		const minutes = parseInt($minuteInput.val()) || 0;
 
 		const time = (hours * 60) + minutes;
-		// console.log('hours', hours);
-		// console.log('minutes', minutes);
-		// console.log('time', time);
-		// console.log(typeof time);
+
 		const type = $mediaType.val();
-		cant acces [0]
 
 		// &with_runtime.gte=5&with_runtime.lte=10
 
@@ -236,6 +236,10 @@ app.setEventListeners = () => {
 		if (time) { 
 			searchFilter["with_runtime.lte"] = time; 
 			console.table(searchFilter);
+		}
+
+		if (genre) {
+			searchFilter["with_genres"] = genre;
 		}
 
 		
@@ -269,15 +273,58 @@ app.setEventListeners = () => {
 
 	});
 
+	$('#movie').on('change', app.populateMediaGenres);
+	$('#tv').on('change', app.populateMediaGenres);
+
 };
 
 
 // https://www.google.com/maps/embed/v1/directions?origin=place_id:ChIJX4Ud3M4rK4gRTORiU8rXyDM&destination=place_id:ChIJJbMiZUwqK4gRb_p9AN3xc2I&key=AIzaSyCPyZS2Eotm8pA650bXUbFEvwil8WvTpbE
 
+/**
+ * Get genre list from API
+ */
+app.getMediaGenres = async function() {
+	// const $mediaType = $('input[name="media"]:checked').val();
+
+// https://api.themoviedb.org/3/genre/movie/list?api_key=993e3f1a5ab9378c732a3cf32f8a2988&language=en-US
+	await app.getMediaData(`genre/movie/list`)
+		.then(({genres}) => {
+			genres.forEach((genre) => {
+				app.genres.movie.push(genre);
+			})
+		})
+
+	await app.getMediaData(`genre/tv/list`)
+	.then(({genres}) => {
+		genres.forEach((genre) => {
+			app.genres.tv.push(genre);
+		})
+	})
+		
+	app.populateMediaGenres();
+}
+
+/**
+ * Populate genre dropdown menu	with genres associated with selected media type
+ */
+app.populateMediaGenres = () => {
+	const mediaType = $('input[name="media"]:checked').val();
+
+	
+	const $genres = $('#genres');
+	$genres.empty().append(`<option value="" selected disabled hidden>Select Genre</option>`);
+	app.genres[mediaType].forEach(({id, name}) => {
+		// console.log(id, name);
+		$genres.append(`<option value="${id}">${name}</option>`);
+	})
+	
+}
 
 /** Initialize App */
 app.init = function() {
-  app.setEventListeners(); 
+	app.setEventListeners();
+	app.getMediaGenres();
 }
 
 // DOCUMENT READY

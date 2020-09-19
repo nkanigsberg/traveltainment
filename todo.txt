@@ -10,6 +10,8 @@
 
 - CSS first pass
 
+- float labels for inputs
+
 - multi-genre
 
 -List

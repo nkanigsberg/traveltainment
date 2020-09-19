@@ -19,23 +19,40 @@
 				<h1>Travel<span>tainment</span></h1>
 						
 				<!-- Main search form -->
-				<form class="searchForm" action="#">
+				<form class="searchForm go-bottom" action="#">
 					<!-- Hours -->
-					<label for="travelHours" class="sr-only">Hours</label>
-					<input type="number" id="travelHours" name="travelHours" placeholder="Hours">
+					<div>
+						<input type="number" id="travelHours" name="travelHours" placeholder="Hours">
+						<label for="travelHours searchForm__label--float">Hours</label>
+					</div>
 				
 					<!-- Minutes -->
-					<label for="travelMinutes" class="sr-only">Minutes</label>
-					<input type="number" id="travelMinutes" name="travelMinutes" placeholder="Minutes">
+					<div>
+						<input type="number" id="travelMinutes" name="travelMinutes" placeholder="Minutes">
+						<label for="travelMinutes searchForm__label--float">Minutes</label>
+					</div>
 				
 					<!-- Movies -->
-					<label class="searchForm__label" for="movie">Movie</label>
-					<input class="searchForm__input" type="radio" name="media" id="movie" value="movie" checked>
+					<div>
+						<input class="searchForm__input" type="radio" name="media" id="movie" value="movie" checked>
+						<label class="searchForm__label searchForm__label--float" for="movie">Movie</label>
+					</div>
 				
 					<!-- TV -->
-					<label class="searchForm__label" for="tv">TV</label>
-					<input class="searchForm__input" type="radio" name="media" id="tv" value="tv">
-				
+					<div>
+						<input class="searchForm__input" type="radio" name="media" id="tv" value="tv">
+						<label class="searchForm__label searchForm__label--float" for="tv">TV</label>
+					</div>
+
+					<!-- Genre -->
+					<div>
+						<label class="searchForm__label" for="genres">Genre</label>
+						<select class="searchForm__input" name="genre" id="genres">
+							<!-- options generated here -->
+						</select>
+					</div>
+					
+
 					<!-- Submit -->
 					<button class="searchForm__submit" type="submit">Search</button>
 				</form>
@@ -43,17 +60,17 @@
 			
 			<!-- Directions -->
 			<div class="directions">
-				<form class="directionsForm" action="#">
+				<form class="directionsForm go-bottom" action="#">
 					<!-- Origin -->
 					<div>
-						<label for="origin" class="sr-only">Origin</label>
 						<input type="text" name="origin" id="origin" placeholder="Origin" required>
+						<label for="origin searchForm__label--float">Origin</label>
 					</div>
 				
 					<!-- Destination -->
 					<div>
-						<label for="destination" class="sr-only">Destination</label>
 						<input type="text" name="destination" id="destination" placeholder="Destination"  required>
+						<label for="destination searchForm__label--float">Destination</label>
 					</div>
 				
 					<!-- Travel Mode -->
@@ -105,7 +122,7 @@
 	<script src="https://www.gstatic.com/firebasejs/7.20.0/firebase-app.js"></script>
 
 	<!-- Firebase database -->
-	<script src='https: //www.gstatic.com/firebasejs/7.20.0/firebase-database.js'></script>
+	<script src='https://www.gstatic.com/firebasejs/7.20.0/firebase-database.js'></script>
 
 	<script>
 		// Your web app's Firebase configuration

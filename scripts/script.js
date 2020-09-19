@@ -11,6 +11,7 @@ app.genres = {
 }
 
 app.mediaList = [];
+app.mediaListRuntime = 0;
 
 
 /*
@@ -151,7 +152,7 @@ app.displayMovieData = (results) => {
 		const imageSrc = backdrop_path ? app.movieImageUrl + backdrop_path : app.movieImageUrl + poster_path;
 
 		$mediaResults.append(`
-			<div class="mediaResults__container">
+			<div class="mediaResults__container" data-runtime="${mediaRuntime}">
 				<h2>${mediaTitle}</h2>
 				<div class="imageContainer">
 					<img src=${imageSrc} alt="${mediaTitle}">
@@ -249,6 +250,7 @@ app.setEventListeners = () => {
 		e.preventDefault();
 
 		const $map = $('.map');
+		const $directions = $('.directions');
 		const origin = $('#origin').val();
 		const destination = $('#destination').val();
 		const mode = $('#travelMode option:selected').val();
@@ -267,7 +269,7 @@ app.setEventListeners = () => {
 
 		// close map on button click
 		$map.on('click', '.button__map', function() {
-			$map.addClass('hidden').empty();
+			$directions.toggleClass('hidden');
 		});
 	});
 
@@ -299,6 +301,11 @@ app.setEventListeners = () => {
 		// console.log('add to list button clicked', title, imgSrc, runtime);
 
 		app.mediaList.push(selectedMedia);
+		app.mediaListRuntime += $mediaContainer.data('runtime');
+
+		const timeString = app.getTimeString(app.mediaListRuntime);
+
+		$('.totalTime').text(timeString);
 
 		// TODO move this to a separate method to display added shows
 		const $sidebarContent = $('.sidebar__content');
@@ -307,14 +314,21 @@ app.setEventListeners = () => {
 			<div class="showList__media">
 				<div class="imgContainer">
 					<img src="${imgSrc}" alt="${title}">
+					<div class="showList__mediaOptions">
+						<button data-id="${title}" class="showList__button"><i class="fas fa-minus-circle"></i></button>
+					</div>
 				</div>
 				<div class="mediaInfo">
 					<h3>${title}</h3>
 					<p>${runtime}</p>
 				</div>
-				<button class="showList__button">Remove</button>
 			</div>
 		`);
+	})
+
+	// remove item from list when button is clicked
+	$('.sidebar__content').on('click', '.showList__button', function() {
+		
 	})
 
 };
@@ -360,6 +374,16 @@ app.populateMediaGenres = () => {
 		$genres.append(`<option value="${id}">${name}</option>`);
 	})
 	
+}
+
+/**
+ * @param {integer} time
+ */
+app.getTimeString = (time) => {
+	const hours = Math.floor(time / 60);
+	const minutes = time % 60;
+
+	return hours ? `${hours}h${minutes}m` : `${minutes}m`;
 }
 
 /** Initialize App */

@@ -78,13 +78,13 @@
 				<form class="form__directions" action="#">
 					<h2>Find your commute time:</h2>
 					<!-- Origin -->
-					<div>
+					<div class="floatLabel-container">
 						<input type="text" name="origin" id="origin" placeholder="Origin" required>
 						<label class="label__float" for="origin">Origin</label>
 					</div>
 				
 					<!-- Destination -->
-					<div>
+					<div class="floatLabel-container">
 						<input type="text" name="destination" id="destination" placeholder="Destination" required>
 						<label class="label__float" for="destination">Destination</label>
 					</div>
@@ -104,6 +104,12 @@
 					<!-- Submit -->
 					<button type="submit">Submit</button>
 				</form>
+
+				<div class="map-container">
+					<div class="map hidden">
+						<!-- google map generated here -->
+					</div>
+				</div>
 			</div>
 
 
@@ -115,12 +121,6 @@
 	<main>
 		<div class="wrapper">
 				
-			<div class="map-container">
-				<div class="map hidden">
-					<!-- google map generated here -->
-				</div>
-			</div>
-
 			<div class="content">
 				<section class="mediaResults">
 					<!-- media results generated here -->

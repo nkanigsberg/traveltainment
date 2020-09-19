@@ -17,3 +17,13 @@ button:not(.button__map):not(.button__commute) {
 		background-color: $buttonHover;
 	}
 }
+
+.button__map,
+.button__commute {
+	
+
+	&:hover,
+	&:focus {
+		opacity: 60%;
+	}
+}

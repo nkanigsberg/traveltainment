@@ -1,0 +1,21 @@
+.showList {
+
+  & > *:not(:last-child) { margin-bottom: 1rem; }
+  &__media {
+    padding: 1rem;
+    display: flex;
+    // justify-content: space-between;
+    
+    &:first-child { margin-right: 1rem; }
+    
+    .imgContainer {
+      width: 50%;
+    }
+
+    button {
+      padding: 0;
+    }
+
+
+  }
+}

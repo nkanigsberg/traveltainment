@@ -1,4 +1,4 @@
-button:not(.button__map) {
+button:not(.button__map):not(.button__commute) {
 	background-color: $buttonColor;
 
 	border: 2px solid $buttonColor;

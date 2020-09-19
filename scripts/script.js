@@ -267,17 +267,54 @@ app.setEventListeners = () => {
 
 		// close map on button click
 		$map.on('click', '.button__map', function() {
-			$map.addClass('hidden');
+			$map.addClass('hidden').empty();
 		});
 	});
+
+
+	// open map interface when commute time button clicked
+	$('.button__commute').on('click', function(e) {
+		e.preventDefault();
+		$('.directions').toggleClass('hidden');
+	});
+
 
 	// populate genres based off media type
 	$('#movie').on('change', app.populateMediaGenres);
 	$('#tv').on('change', app.populateMediaGenres);
 
 	// add media selection to list
-	$('.mediaResults').on('click', 'button', (event) => {
-	
+	$('.mediaResults').on('click', 'button', function() {
+		// const title = $(this).parent().parent()
+		const $mediaContainer = $(this).parent().parent();
+		const title = $mediaContainer.find('h2').text();
+		const imgSrc = $mediaContainer.find('img').attr('src');
+		const runtime = $mediaContainer.find('.mediaResults__info p').text();
+
+		const selectedMedia = {
+			title,
+			imgSrc,
+			runtime
+		}
+		// console.log('add to list button clicked', title, imgSrc, runtime);
+
+		app.mediaList.push(selectedMedia);
+
+		// TODO move this to a separate method to display added shows
+		const $sidebarContent = $('.sidebar__content');
+
+		$sidebarContent.append(`
+			<div class="showList__media">
+				<div class="imgContainer">
+					<img src="${imgSrc}" alt="${title}">
+				</div>
+				<div class="mediaInfo">
+					<h3>${title}</h3>
+					<p>${runtime}</p>
+				</div>
+				<button class="showList__button">Remove</button>
+			</div>
+		`);
 	})
 
 };

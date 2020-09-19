@@ -27,13 +27,13 @@
 						<!-- select media options -->
 						<div class="search__options">
 							<!-- Movies -->
-							<div>
+							<div class="floatLabel-container">
 								<input class="searchForm__input" type="radio" name="media" id="movie" value="movie" checked>
 								<label for="movie">Movie</label>
 							</div>
 						
 							<!-- TV -->
-							<div>
+							<div class="floatLabel-container">
 								<input class="searchForm__input" type="radio" name="media" id="tv" value="tv">
 								<label for="tv">TV</label>
 							</div>
@@ -52,19 +52,21 @@
 						<div class="search__time">
 							<h2>Enter commute time:</h2>
 							<!-- Hours -->
-							<div>
+							<div class="floatLabel-container">
 								<input type="number" id="travelHours" name="travelHours" placeholder="Hours">
 								<label class="label__float" for="travelHours">Hours</label>
 							</div>
 						
 							<!-- Minutes -->
-							<div>
+							<div class="floatLabel-container">
 								<input type="number" id="travelMinutes" name="travelMinutes" placeholder="Minutes">
 								<label class="label__float" for="travelMinutes">Minutes</label>
 							</div>
 
 							<!-- Submit -->
 							<button type="submit">Search</button>
+
+							<button class="button__commute">Find your commute time</button>
 						</div>
 		
 					</div>
@@ -72,7 +74,7 @@
 			</div>
 			
 			<!-- Directions -->
-			<div class="directions">
+			<div class="directions hidden">
 				<form class="form__directions" action="#">
 					<h2>Find your commute time:</h2>
 					<!-- Origin -->
@@ -113,22 +115,27 @@
 	<main>
 		<div class="wrapper">
 				
-			<aside class="sidebar">
-				<h2>List</h2>
-			</aside>
-
 			<div class="map-container">
 				<div class="map hidden">
 					<!-- google map generated here -->
 				</div>
 			</div>
 
-			<section class="mediaResults">
-				<!-- media results generated here -->
-			</section>
-
-
-
+			<div class="content">
+				<section class="mediaResults">
+					<!-- media results generated here -->
+				</section>
+	
+				<aside class="sidebar">
+					<h2>List</h2>
+					<div class="sidebar__content">
+						<!-- sidebar content generated here -->
+					</div>
+					<p>Total time:</p>
+					<!-- total time -->
+					<span class="totalTime"></span>
+				</aside>
+			</div>
 
 
 		</div>

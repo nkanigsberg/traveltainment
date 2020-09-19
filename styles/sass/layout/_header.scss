@@ -1,4 +1,6 @@
-header { padding: 2rem 0}
+header { 
+	padding: 2rem 0
+}
 
 .topBar {
 	display: flex;
@@ -6,7 +8,24 @@ header { padding: 2rem 0}
 	align-items: center;
 }
 
+.form__search {
+	width: 70%;
+}
+
+.search__time {
+	position: relative;
+}
+
+.button__commute {
+	position: absolute;
+	left: 0;
+	bottom: -20px;
+}
+
 .directions {
 	display: flex;
 	justify-content: flex-end;
+	position: absolute;
+	// right: 0;
+
 }

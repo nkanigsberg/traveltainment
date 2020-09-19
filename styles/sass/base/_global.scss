@@ -9,7 +9,9 @@ body {
 }
 
 .hidden {
-	opacity: 0;
+	// opacity: 0;
+	// display: none;
+	visibility: hidden;
 }
 
 // Remove arrows/spinners from number inputs

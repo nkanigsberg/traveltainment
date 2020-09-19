@@ -8,6 +8,9 @@ body {
 	background-color: $primaryBackground;
 }
 
+.hidden {
+	opacity: 0;
+}
 
 // Remove arrows/spinners from number inputs
 	/* Chrome, Safari, Edge, Opera */
@@ -21,3 +24,5 @@ body {
 	input[type=number] {
 		-moz-appearance: textfield;
 	}
+
+

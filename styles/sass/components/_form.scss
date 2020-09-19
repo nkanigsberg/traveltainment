@@ -1,11 +1,8 @@
 // Float label css inspired by https://css-tricks.com/float-labels-css/
 
 form {
-  width: 320px;
-  float: left;
-	margin: 20px;
 	
-  > div {
+  div {
     position: relative;
     overflow: hidden;
 	}
@@ -22,10 +19,10 @@ form {
     padding: 12px; 
 		outline: 0;
 		
-    &:valid {
-      // Hides the label
-      background: white;
-    }
+    // &:valid {
+    //   // Hides the label
+    //   background: white;
+    // }
     &:focus {
       border-color: #f06d06;
     }
@@ -59,4 +56,30 @@ form {
 		left: 0;
 		width: 100%;
 	}
+}
+
+.form__search {
+	display: flex;
+	align-items: center;
+
+	.search__time,
+	.search__options {
+		display: flex;
+		align-items: center;
+	}
+
+	.search__options {
+		width: 100%;
+		justify-content: space-evenly;
+	}
+
+	h2 {
+		position: absolute;
+	}
+
+}
+
+
+.form__directions {
+
 }

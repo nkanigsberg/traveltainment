@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Traveltainment</title>
+	<!-- fontawesome -->
+	<script src="https://kit.fontawesome.com/51d17a3aa7.js" crossorigin="anonymous"></script>
 	<!-- google fonts -->
 	<link href="https://fonts.googleapis.com/css2?family=Abel&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 	<!-- stylesheet -->
@@ -20,47 +22,59 @@
 						
 				<!-- Main search form -->
 				<form class="form__search form--float" action="#">
-					<!-- Hours -->
-					<div>
-						<input type="number" id="travelHours" name="travelHours" placeholder="Hours">
-						<label class="label__float" for="travelHours">Hours</label>
-					</div>
-				
-					<!-- Minutes -->
-					<div>
-						<input type="number" id="travelMinutes" name="travelMinutes" placeholder="Minutes">
-						<label class="label__float" for="travelMinutes">Minutes</label>
-					</div>
-				
-					<!-- Movies -->
-					<div>
-						<input class="searchForm__input" type="radio" name="media" id="movie" value="movie" checked>
-						<label for="movie">Movie</label>
-					</div>
-				
-					<!-- TV -->
-					<div>
-						<input class="searchForm__input" type="radio" name="media" id="tv" value="tv">
-						<label for="tv">TV</label>
-					</div>
 
-					<!-- Genre -->
-					<div>
-						<label for="genres">Genre</label>
-						<select class="searchForm__input" name="genre" id="genres">
-							<!-- options generated here -->
-						</select>
-					</div>
-					
+					<div class="search">
+						<!-- select media options -->
+						<div class="search__options">
+							<!-- Movies -->
+							<div>
+								<input class="searchForm__input" type="radio" name="media" id="movie" value="movie" checked>
+								<label for="movie">Movie</label>
+							</div>
+						
+							<!-- TV -->
+							<div>
+								<input class="searchForm__input" type="radio" name="media" id="tv" value="tv">
+								<label for="tv">TV</label>
+							</div>
+						
+							<!-- Genre -->
+							<div>
+								<label class="sr-only" for="genres">Genre</label>
+								<select class="searchForm__input" name="genre" id="genres">
+									<!-- options generated here -->
+								</select>
+							</div>
+						</div>
 
-					<!-- Submit -->
-					<button type="submit">Search</button>
+						
+						<!-- enter commute time -->
+						<div class="search__time">
+							<h2>Enter commute time:</h2>
+							<!-- Hours -->
+							<div>
+								<input type="number" id="travelHours" name="travelHours" placeholder="Hours">
+								<label class="label__float" for="travelHours">Hours</label>
+							</div>
+						
+							<!-- Minutes -->
+							<div>
+								<input type="number" id="travelMinutes" name="travelMinutes" placeholder="Minutes">
+								<label class="label__float" for="travelMinutes">Minutes</label>
+							</div>
+
+							<!-- Submit -->
+							<button type="submit">Search</button>
+						</div>
+		
+					</div>
 				</form>
 			</div>
 			
 			<!-- Directions -->
 			<div class="directions">
 				<form class="form__directions" action="#">
+					<h2>Find your commute time:</h2>
 					<!-- Origin -->
 					<div>
 						<input type="text" name="origin" id="origin" placeholder="Origin" required>
@@ -99,14 +113,23 @@
 	<main>
 		<div class="wrapper">
 				
+			<aside class="sidebar">
+				<h2>List</h2>
+			</aside>
 
-			<div class="map">
-				<!-- google map generated here -->
+			<div class="map-container">
+				<div class="map hidden">
+					<!-- google map generated here -->
+				</div>
 			</div>
 
 			<section class="mediaResults">
 				<!-- media results generated here -->
 			</section>
+
+
+
+
 
 		</div>
 	</main>

@@ -1,4 +1,22 @@
+.map-container {
+	position: absolute;
+	right: 400px;
+	top: 100px;
+}
+
 .map {
 	display: flex;
 	justify-content: flex-end;
+
+	position: relative;
+	z-index: 100;
+
+	padding-top: 30px;
+	border: 2px solid black;
+
+
+	button {
+		position: absolute;
+		top: 0px;
+	}
 }

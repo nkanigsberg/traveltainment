@@ -18,5 +18,7 @@
 
 - Extra search parameters
 
+- hover to see more info - click to see more (moviedb page or where to watch)
+
 
 - Firebase API storage

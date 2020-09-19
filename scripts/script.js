@@ -3,10 +3,14 @@ const app = {}
 app.movieApi = "https://api.themoviedb.org/3/";
 app.movieApiKey = "993e3f1a5ab9378c732a3cf32f8a2988";
 app.movieImageUrl = "https://image.tmdb.org/t/p/w500";
+app.infoUrl = "https://www.themoviedb.org/";
+
 app.genres = {
 	movie: [],
 	tv: []
 }
+
+app.mediaList = [];
 
 
 /*
@@ -87,48 +91,10 @@ app.getMovieData = function(type, searchFilter = {}) {
 							return mediaRuntime > 0
 						});
 					
-					// if (searchFilter["with_runtime.lte"]) {
-					// 	const travelTime = searchFilter["with_runtime.lte"];
-					// 	console.log('filter travel time', travelTime);
-						
-					// 	const filterMedia = mediaDetails.filter(({runtime, episode_run_time}) => {
-					// 		console.log(runtime, episode_run_time);
-					// 		const mediaRuntime = type === "movie" ? runtime : episode_run_time[0]; 
-							
-					// 		console.log('mediaruntime', mediaRuntime)
-					// 		return travelTime >= mediaRuntime  && mediaRuntime > 0
-					// 	});
-
-					// 	console.log(filterMedia);
-					// 	app.displayMovieData(filterMedia);
-					// } else {
-
-						// }
-						
-							app.displayMovieData(mediaDetails);
-				});
-
-
-				
-			// console.log(mediaResultsDetail);
-			// console.log(mediaResults)
-		})
-		// then display the data
-		// .then(this.displayMovieData)
-  // const response = $.ajax({
-	// 	url: `${app.movieApi}discover/${type}`,
-	// 	method: 'GET',
-	// 	dataType: 'JSON',
-	// 	data: {
-	// 		api_key: app.movieApiKey,
-	// 		page: 1,
-	// 	}
-	// })
-
-
-	// const response = app.getMediaData()
-	// app.getMediaDetails(response);
-};
+						app.displayMovieData(mediaDetails);
+				}); // end of .then
+		}); // end of app.getMediaData
+}; // end of app.getMovieData
 
 
 /**
@@ -166,9 +132,10 @@ app.displayMovieData = (results) => {
 
 	const newArray = results.slice(0, 10);
 
-	newArray.forEach(({ title, name, backdrop_path, runtime, episode_run_time}) => {
+	newArray.forEach(({id, title, name, backdrop_path, poster_path, runtime, episode_run_time}) => {
 		const mediaTitle = title ? title : name;
 		const mediaRuntime = runtime ? runtime: episode_run_time[0];
+		const mediaType = runtime ? "movie" : "tv";
 
 		const hours = Math.floor(mediaRuntime / 60);
 		const minutes = mediaRuntime % 60;
@@ -179,14 +146,24 @@ app.displayMovieData = (results) => {
 		
 		console.log(mediaTitle);
 		console.log(backdrop_path);
+		console.log(poster_path);
 
-		const imageSrc = app.movieImageUrl + backdrop_path;
+		const imageSrc = backdrop_path ? app.movieImageUrl + backdrop_path : app.movieImageUrl + poster_path;
 
 		$mediaResults.append(`
 			<div class="mediaResults__container">
-			<h2>${mediaTitle}</h2>
-			<img src=${imageSrc} alt="${mediaTitle}">
-			<p>${timeString}</p>
+				<h2>${mediaTitle}</h2>
+				<div class="imageContainer">
+					<img src=${imageSrc} alt="${mediaTitle}">
+					<div class="mediaResults__moreInfo">
+						<a href="${app.infoUrl}${mediaType}/${id}" target="_blank">More Info</a>
+					</div>
+				</div>
+				<div class="mediaResults__info">
+					<p>${timeString}</p>
+					<button class="mediaResults__button">Add to list</button>
+				</div>
+				
 			<div>
 		`);
 
@@ -227,7 +204,7 @@ app.movieImageUrl = "https://image.tmdb.org/t/p/w500/w6e0XZreiyW4mGlLRHEG8ipff7b
  * Add event listeners
  */
 app.setEventListeners = () => {
-
+	// get media results based off user input
   $('.form__search').on('submit', function(e) {
 		e.preventDefault();
 		const $hourInput = $('#travelHours');
@@ -261,19 +238,23 @@ app.setEventListeners = () => {
 		console.log(searchFilter);
 		// console.log({time, type});
 		app.getMovieData(type, searchFilter);
-  })
+	})
+	
+
+	// $('iframe').attr('src', `https://www.google.com/maps/embed/v1/directions?origin=${origin}&destination=${destination}&key=AIzaSyCPyZS2Eotm8pA650bXUbFEvwil8WvTpbE`);
 
 
 	// display map on directions submit
 	$('.form__directions').on('submit', function(e) {
 		e.preventDefault();
 
-		$('.map').empty();
+		const $map = $('.map');
 		const origin = $('#origin').val();
 		const destination = $('#destination').val();
 		const mode = $('#travelMode option:selected').val();
 
-		$('.map').append(`
+		$map.empty().removeClass('hidden').append(`
+		<button class="button__map">Close Map <i class="fas fa-times" aria-label="Close Map"></i></button>
 		<iframe width="600" height="450" frameborder="0" style="border:0"
 			src="https://www.google.com/maps/embed/v1/directions
 				?origin=${origin}
@@ -284,12 +265,20 @@ app.setEventListeners = () => {
 		`);
 
 
-		// $('iframe').attr('src', `https://www.google.com/maps/embed/v1/directions?origin=${origin}&destination=${destination}&key=AIzaSyCPyZS2Eotm8pA650bXUbFEvwil8WvTpbE`);
-
+		// close map on button click
+		$map.on('click', '.button__map', function() {
+			$map.addClass('hidden');
+		});
 	});
 
+	// populate genres based off media type
 	$('#movie').on('change', app.populateMediaGenres);
 	$('#tv').on('change', app.populateMediaGenres);
+
+	// add media selection to list
+	$('.mediaResults').on('click', 'button', (event) => {
+	
+	})
 
 };
 

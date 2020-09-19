@@ -19,34 +19,34 @@
 				<h1>Travel<span>tainment</span></h1>
 						
 				<!-- Main search form -->
-				<form class="searchForm go-bottom" action="#">
+				<form class="form__search form--float" action="#">
 					<!-- Hours -->
 					<div>
-						<input type="number" id="travelHours" name="travelHours" placeholder="Hours">
-						<label for="travelHours searchForm__label--float">Hours</label>
+						<input type="number" id="travelHours" name="travelHours">
+						<label class="label__float" for="travelHours">Hours</label>
 					</div>
 				
 					<!-- Minutes -->
 					<div>
-						<input type="number" id="travelMinutes" name="travelMinutes" placeholder="Minutes">
-						<label for="travelMinutes searchForm__label--float">Minutes</label>
+						<input type="number" id="travelMinutes" name="travelMinutes">
+						<label class="label__float" for="travelMinutes">Minutes</label>
 					</div>
 				
 					<!-- Movies -->
 					<div>
 						<input class="searchForm__input" type="radio" name="media" id="movie" value="movie" checked>
-						<label class="searchForm__label searchForm__label--float" for="movie">Movie</label>
+						<label for="movie">Movie</label>
 					</div>
 				
 					<!-- TV -->
 					<div>
 						<input class="searchForm__input" type="radio" name="media" id="tv" value="tv">
-						<label class="searchForm__label searchForm__label--float" for="tv">TV</label>
+						<label for="tv">TV</label>
 					</div>
 
 					<!-- Genre -->
 					<div>
-						<label class="searchForm__label" for="genres">Genre</label>
+						<label for="genres">Genre</label>
 						<select class="searchForm__input" name="genre" id="genres">
 							<!-- options generated here -->
 						</select>
@@ -54,23 +54,23 @@
 					
 
 					<!-- Submit -->
-					<button class="searchForm__submit" type="submit">Search</button>
+					<button type="submit">Search</button>
 				</form>
 			</div>
 			
 			<!-- Directions -->
 			<div class="directions">
-				<form class="directionsForm go-bottom" action="#">
+				<form class="form__directions" action="#">
 					<!-- Origin -->
 					<div>
-						<input type="text" name="origin" id="origin" placeholder="Origin" required>
-						<label for="origin searchForm__label--float">Origin</label>
+						<input type="text" name="origin" id="origin" required>
+						<label class="label__float" for="origin">Origin</label>
 					</div>
 				
 					<!-- Destination -->
 					<div>
-						<input type="text" name="destination" id="destination" placeholder="Destination"  required>
-						<label for="destination searchForm__label--float">Destination</label>
+						<input type="text" name="destination" id="destination" required>
+						<label class="label__float" for="destination">Destination</label>
 					</div>
 				
 					<!-- Travel Mode -->

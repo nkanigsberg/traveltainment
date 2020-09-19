@@ -1,0 +1,19 @@
+button {
+	background-color: $buttonColor;
+
+	border: 2px solid $buttonColor;
+	border-radius: 1rem;
+
+	padding: 0.8rem 2.4rem;
+
+	text-transform: uppercase;
+
+	&:hover,
+	&:focus {
+		border: 2px solid $buttonHover;
+	}
+
+	&:active {
+		background-color: $buttonHover;
+	}
+}

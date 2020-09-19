@@ -213,7 +213,7 @@ app.movieImageUrl = "https://image.tmdb.org/t/p/w500/w6e0XZreiyW4mGlLRHEG8ipff7b
  */
 app.setEventListeners = () => {
 
-  $('.searchForm').on('submit', function(e) {
+  $('.form__search').on('submit', function(e) {
 		e.preventDefault();
 		const $hourInput = $('#travelHours');
 		const $minuteInput = $('#travelMinutes');
@@ -250,7 +250,7 @@ app.setEventListeners = () => {
 
 
 	// display map on directions submit
-	$('.directionsForm').on('submit', function(e) {
+	$('.form__directions').on('submit', function(e) {
 		e.preventDefault();
 
 		$('.map').empty();

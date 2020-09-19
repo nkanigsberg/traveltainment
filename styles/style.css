@@ -235,59 +235,56 @@ html {
   overflow: hidden;
 }
 
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed,
-figure, figcaption, footer, header, hgroup,
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+li,
+button {
   margin: 0;
   padding: 0;
-  border: 0;
-  font-size: 100%;
-  font: inherit;
-  vertical-align: baseline;
+  font-weight: normal;
 }
 
-/* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure,
-footer, header, hgroup, menu, nav, section {
-  display: block;
-}
-
-body {
-  line-height: 1;
-}
-
-ol, ul {
+ul {
   list-style: none;
 }
 
-blockquote, q {
-  quotes: none;
+a {
+  text-decoration: none;
+  color: inherit;
 }
 
-blockquote:before, blockquote:after,
-q:before, q:after {
-  content: '';
-  content: none;
-}
-
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
+button {
+  font-family: inherit;
+  border: none;
+  background: none;
+  cursor: pointer;
 }
 
 img {
   width: 100%;
+  max-width: 100%;
+  height: auto;
+  -o-object-fit: cover;
+     object-fit: cover;
   display: block;
+}
+
+address {
+  font-style: normal;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-size: 1.6rem;
 }
 
 body {
@@ -360,7 +357,8 @@ form > div {
   overflow: hidden;
 }
 
-form input, form textarea {
+form input[type="number"],
+form input[type="text"] {
   width: 100%;
   border: 2px solid gray;
   background: none;
@@ -368,58 +366,58 @@ form input, form textarea {
   top: 0;
   left: 0;
   z-index: 1;
-  padding: 8px 12px;
+  padding: 12px;
   outline: 0;
 }
 
-form input:valid, form textarea:valid {
+form input[type="number"]:valid,
+form input[type="text"]:valid {
   background: white;
 }
 
-form input:focus, form textarea:focus {
+form input[type="number"]:focus,
+form input[type="text"]:focus {
   border-color: #f06d06;
 }
 
-form input:focus + label.searchForm__label--float, form textarea:focus + label.searchForm__label--float {
+form input[type="number"]:focus + .label__float,
+form input[type="text"]:focus + .label__float {
   background: #f06d06;
   color: white;
   font-size: 70%;
-  padding: 1px 6px;
+  padding: 4px 6px 20px 6px;
   z-index: 2;
   text-transform: uppercase;
+  top: 100%;
+  margin-top: -16px;
 }
 
-form label.searchForm__label--float {
-  -webkit-transition: background 0.2s, color 0.2s, top 0.2s, bottom 0.2s, right 0.2s, left 0.2s;
-  transition: background 0.2s, color 0.2s, top 0.2s, bottom 0.2s, right 0.2s, left 0.2s;
+form .label__float {
+  -webkit-transition: background 0.2s, color 0.2s, top 0.2s, bottom 0.2s, right 0.2s, left 0.2s;
+  transition: background 0.2s, color 0.2s, top 0.2s, bottom 0.2s, right 0.2s, left 0.2s;
   position: absolute;
   color: #999;
   padding: 7px 6px;
-}
-
-form textarea {
-  display: block;
-  resize: vertical;
-}
-
-form.go-bottom input, form.go-bottom textarea {
-  padding: 12px 12px 12px 12px;
-}
-
-form.go-bottom label.searchForm__label--float {
   top: 0;
   bottom: 0;
   left: 0;
   width: 100%;
 }
 
-form.go-bottom input:focus, form.go-bottom textarea:focus {
-  padding: 4px 6px 20px 6px;
+button {
+  background-color: #f6b44a;
+  border: 2px solid #f6b44a;
+  border-radius: 1rem;
+  padding: 0.8rem 2.4rem;
+  text-transform: uppercase;
 }
 
-form.go-bottom input:focus + label.searchForm__label--float, form.go-bottom textarea:focus + label.searchForm__label--float {
-  top: 100%;
-  margin-top: -16px;
+button:hover, button:focus {
+  border: 2px solid #d0840a;
+}
+
+button:active {
+  background-color: #d0840a;
 }
 
 .map {

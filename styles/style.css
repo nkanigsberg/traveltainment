@@ -388,6 +388,10 @@ header {
   width: 25%;
 }
 
+form {
+  line-height: 1.4;
+}
+
 form .floatLabel-container {
   position: relative;
   overflow: hidden;
@@ -396,36 +400,38 @@ form .floatLabel-container {
 form input[type="number"],
 form input[type="text"] {
   width: 100%;
-  border: 2px solid gray;
-  background-color: white;
+  border: 2px solid grey;
+  background-color: #FAFFFE;
   position: relative;
   top: 0;
   left: 0;
   z-index: 1;
-  padding: 12px;
+  padding: 1.2rem;
   outline: 0;
 }
 
 form input[type="number"]:focus,
 form input[type="text"]:focus {
   border-color: #f06d06;
+  padding: 0.4rem 0.6rem 2rem;
 }
 
 form input[type="number"]:focus + .label__float,
 form input[type="text"]:focus + .label__float {
   background: #f06d06;
-  color: white;
+  color: #FAFFFE;
   font-size: 70%;
-  padding: 4px 6px 20px 6px;
+  padding: 0.1rem 0.6rem;
   z-index: 2;
   text-transform: uppercase;
   top: 100%;
   margin-top: -16px;
 }
 
-form input:placeholder-shown + .label__float {
-  -webkit-transition: background 0.2s, color 0.2s, top 0.2s, bottom 0.2s, right 0.2s, left 0.2s;
-  transition: background 0.2s, color 0.2s, top 0.2s, bottom 0.2s, right 0.2s, left 0.2s;
+form input[type="number"] + .label__float,
+form input[type="text"] + .label__float {
+  -webkit-transition: background 0.2s, color 0.2s, top 0.2s, bottom 0.2s, right 0.2s, left 0.2s;
+  transition: background 0.2s, color 0.2s, top 0.2s, bottom 0.2s, right 0.2s, left 0.2s;
   position: absolute;
   color: #999;
   padding: 7px 6px;

@@ -14,14 +14,16 @@ $primaryBackground: #f3f2f0;
 $black: #2C2C2C;
 $white: #FAFFFE;
 $grey: grey;
-// $accent1: #50E3C2;
+$accent1: #D40242;
 // $accent2: #063974;
 // $accent3: #0C5F4C;
 
 $buttonColor: #f6b44a;
 $buttonHover: darken(#f6b44a, 20);
 
-$floatLabel: #f06d06;
+// $floatLabel: #01B4E4;
+$floatLabel: #1F5673;
+
 
 // font stacks
 $primaryFont: 'Roboto', sans-serif;
@@ -29,4 +31,7 @@ $secondaryFont: 'Abel', sans-serif;
 
 
 // dimensions
-	
+  
+// testing colours
+$testColor-1: #D40242;
+$testColor-2: #1f5673;

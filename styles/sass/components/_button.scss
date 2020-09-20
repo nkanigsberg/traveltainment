@@ -1,29 +1,75 @@
-button:not(.button__map):not(.button__commute) {
-	background-color: $buttonColor;
+.button{
+	&__primary {
+		background-color: $buttonColor;
+		color: $black;
 
-	border: 2px solid $buttonColor;
-	border-radius: 1rem;
+		border: 2px solid $buttonColor;
+		border-radius: 1rem;
 
-	padding: 0.8rem 2.4rem;
+		padding: 0.8rem 2.4rem;
 
-	text-transform: uppercase;
+		text-transform: uppercase;
 
-	&:hover,
-	&:focus {
-		border: 2px solid $buttonHover;
+		&:hover,
+		&:focus {
+			border: 2px solid $buttonHover;
+		}
+
+		&:active {
+			background-color: $buttonHover;
+		}
 	}
 
-	&:active {
-		background-color: $buttonHover;
+	&__map,
+  &__commute {
+		&:hover,
+		&:focus {
+			opacity: 60%;
+		}
+	}
+
+	&__list {
+		border-color: transparent;
+    color: $white;
+		padding: 0.4rem 0.8rem;
+		font-size: 1.4rem;
+
+		&--add {
+			background-color: #032541;
+		}
+
+		&--remove {
+			background-color: darken(#D40242, 10%);
+		}
 	}
 }
 
-.button__map,
-.button__commute {
+
+// button:not(.button__map):not(.button__commute) {
+// 	background-color: $buttonColor;
+
+// 	border: 2px solid $buttonColor;
+// 	border-radius: 1rem;
+
+// 	padding: 0.8rem 2.4rem;
+
+// 	text-transform: uppercase;
+
+// 	&:hover,
+// 	&:focus {
+// 		border: 2px solid $buttonHover;
+// 	}
+
+// 	&:active {
+// 		background-color: $buttonHover;
+// 	}
+// }
+
+// .button__map,
+// .button__commute {
 	
-
-	&:hover,
-	&:focus {
-		opacity: 60%;
-	}
-}
+// 	&:hover,
+// 	&:focus {
+// 		opacity: 60%;
+// 	}
+// }

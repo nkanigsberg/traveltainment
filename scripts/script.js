@@ -162,7 +162,7 @@ app.displayMovieData = (results) => {
 				</div>
 				<div class="mediaResults__info">
 					<p>${timeString}</p>
-					<button class="mediaResults__button">Add to list</button>
+					<button class="mediaResults__button button__list button__list--add button__primary"">Add to list</button>
 				</div>
 				
 			<div>
@@ -316,7 +316,7 @@ app.setEventListeners = () => {
 	})
 
 	// remove item from list when button is clicked
-	$('.sidebar__content').on('click', '.showList__button', function() {
+	$('.sidebar__content').on('click', '.button__list--remove', function() {
 		const $mediaContainer = $(this).parent().parent();
 		const id = $mediaContainer.data('id');
 		const runtime = $mediaContainer.data('runtime');
@@ -347,7 +347,7 @@ app.displayMediaList = () => {
 				<div class="mediaInfo">
 					<h3>${title}</h3>
 					<p>${timeString}</p>
-					<button data-title="${title}" data-runtime="${runtime}" class="showList__button">Remove</button>
+					<button data-title="${title}" data-runtime="${runtime}" class="button__list button__list--remove button__primary">Remove</button>
 				</div>
 			</div>
 		`);

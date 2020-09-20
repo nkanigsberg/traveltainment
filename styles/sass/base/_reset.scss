@@ -25,6 +25,7 @@ a {
 // Strip button default styling (and add pointer cursor) 
 button {
 	font-family: inherit;
+	color: inherit;
   border: none;
   background: none;
   cursor: pointer;
@@ -47,4 +48,7 @@ html {
 }
 body {
   font-size: 1.6rem;
+}
+select {
+	font-family: inherit;
 }

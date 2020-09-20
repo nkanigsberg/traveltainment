@@ -4,12 +4,19 @@ body {
 
 h1 {
 	// font-family: $secondaryFont;
-	font-size: 3rem;
+	font-size: 3.5rem;
 
 	span {
 		font-family: $secondaryFont;
 	}
 }
+
+
+.tagline {
+	font-size: 1.8rem;
+	text-align: center;
+}
+
 
 h2 {
 	font-size: 2rem;

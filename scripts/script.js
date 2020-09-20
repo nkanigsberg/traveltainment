@@ -98,24 +98,6 @@ app.getMovieData = function(type, searchFilter = {}) {
 }; // end of app.getMovieData
 
 
-/**
- * 
- */
-app.getMediaDetails = async function(response) {
-	// console.log(response);
-	
-	response.then((result) => {
-
-		// app.displayMovieData(result);
-	}).fail((error) => {
-		console.log(error);
-	});
-
-
-
-
-};
-
 // https://api.themoviedb.org/3/movie/550/images?api_key=993e3f1a5ab9378c732a3cf32f8a2988&language=en-US&include_image_language=en
 
 
@@ -126,7 +108,7 @@ app.getMediaDetails = async function(response) {
  * @param {object} param0 - 
  */
 app.displayMovieData = (results) => {
-	const $mediaResults = $('.mediaResults');
+	const $mediaResults = $('.mediaResults__content');
 	$mediaResults.empty();
 
 	console.log(results);
@@ -153,7 +135,7 @@ app.displayMovieData = (results) => {
 
 		$mediaResults.append(`
 			<div class="mediaResults__container" data-id="${id}" data-type="${mediaType}" data-runtime="${mediaRuntime}">
-				<h2>${mediaTitle}</h2>
+				<h3 class="mediaResults__title">${mediaTitle}</h3>
 				<div class="imageContainer">
 					<img src=${imageSrc} alt="${mediaTitle}">
 					<div class="mediaResults__moreInfo">
@@ -161,7 +143,7 @@ app.displayMovieData = (results) => {
 					</div>
 				</div>
 				<div class="mediaResults__info">
-					<p>${timeString}</p>
+					<p class="mediaResults__runtime">${timeString}</p>
 					<button class="mediaResults__button button__list button__list--add button__primary"">Add to list</button>
 				</div>
 				
@@ -199,6 +181,16 @@ vote_count: 16
 app.movieImageUrl = "https://image.tmdb.org/t/p/w500/w6e0XZreiyW4mGlLRHEG8ipff7b.jpg" + ;
 */
 
+/**
+ * Set the main search button text
+ */
+app.setButtonText = () => {
+	const $submitButton = $('.search__time button[type="submit"]');
+	const type = $('input[name="media"]:checked').val();
+
+	console.log($submitButton);
+	$submitButton.text(`Find ${type}${type === 'movie' ? 's' : ''}`);
+};
 
 
 /**
@@ -212,6 +204,8 @@ app.setEventListeners = () => {
 		const $minuteInput = $('#travelMinutes');
 
 		const $mediaType = $('input[name="media"]:checked');
+		const $directions = $('.directions');
+
 		const genre = $('#genres').val();
 
 		console.log('form submitted');
@@ -224,7 +218,7 @@ app.setEventListeners = () => {
 		const type = $mediaType.val();
 
 		// &with_runtime.gte=5&with_runtime.lte=10
-
+	
 		const searchFilter = {};
 		if (time) { 
 			searchFilter["with_runtime.lte"] = time; 
@@ -234,12 +228,14 @@ app.setEventListeners = () => {
 		if (genre) {
 			searchFilter["with_genres"] = genre;
 		}
-
 		
 		console.log(searchFilter);
 		// console.log({time, type});
 		app.getMovieData(type, searchFilter);
-	})
+
+		$directions.addClass('hidden');
+
+	});
 	
 
 	// $('iframe').attr('src', `https://www.google.com/maps/embed/v1/directions?origin=${origin}&destination=${destination}&key=AIzaSyCPyZS2Eotm8pA650bXUbFEvwil8WvTpbE`);
@@ -248,15 +244,13 @@ app.setEventListeners = () => {
 	// display map on directions submit
 	$('.form__directions').on('submit', function(e) {
 		e.preventDefault();
-
-		const $map = $('.map');
 		const $directions = $('.directions');
+		const $map = $('.map');
 		const origin = $('#origin').val();
 		const destination = $('#destination').val();
 		const mode = $('#travelMode option:selected').val();
 
 		$map.empty().removeClass('hidden').append(`
-		<button class="button__map">Close Map <i class="fas fa-times" aria-label="Close Map"></i></button>
 		<iframe width="600" height="450" frameborder="0" style="border:0"
 			src="https://www.google.com/maps/embed/v1/directions
 				?origin=${origin}
@@ -265,18 +259,26 @@ app.setEventListeners = () => {
 				&key=AIzaSyCPyZS2Eotm8pA650bXUbFEvwil8WvTpbE"
 			allowfullscreen></iframe>
 		`);
-
-
-		// close map on button click
-		$map.on('click', '.button__map', function() {
-			$directions.toggleClass('hidden');
-		});
 	});
 
 
 	// open map interface when commute time button clicked
 	$('.button__commute').on('click', function(e) {
 		e.preventDefault();
+
+		const $directions = $('.directions');
+
+		$directions.toggleClass('hidden');
+
+		$directions.find('.button__map').remove();
+
+		$directions.append(`
+			<button class="button__map">Close <i class="fas fa-times" aria-label="Close Map"></i></button>
+		`);
+	});
+
+	// close map on button click
+	$('.directions').on('click', '.button__map', function() {
 		$('.directions').toggleClass('hidden');
 	});
 
@@ -291,10 +293,10 @@ app.setEventListeners = () => {
 		const $mediaContainer = $(this).parent().parent();
 		const id = $mediaContainer.data('id');
 		const type = $mediaContainer.data('type');
-		const title = $mediaContainer.find('h2').text();
+		const title = $mediaContainer.find('.mediaResults__title').text();
 		const imgSrc = $mediaContainer.find('img').attr('src');
 		const runtime = $mediaContainer.data('runtime');
-		const timeString = $mediaContainer.find('.mediaResults__info p').text();
+		const timeString = $mediaContainer.find('.mediaResults__runtime').text();
 
 		
 		// check if the media has already been added to the list
@@ -327,7 +329,11 @@ app.setEventListeners = () => {
 		app.displayMediaList();
 	});
 
+
+	// change search button text on media type change
+	$('input[name="media"]').on('change', app.setButtonText);
 };
+
 
 app.displayMediaList = () => {
 	const $sidebarContent = $('.sidebar__content');
@@ -335,19 +341,19 @@ app.displayMediaList = () => {
 	$sidebarContent.empty();
 
 	app.mediaList.forEach(({id, type, title, imgSrc, runtime, timeString}) => {
+		// <div class="mediaResults__moreInfo">
+		// 	<a href="${app.infoUrl}${type}/${id}" target="_blank">More Info</a>
+		// 	</div>
 
 		$sidebarContent.append(`
 			<div class="showList__media" data-id="${id}" data-runtime="${runtime}">
 				<div class="imageContainer">
 					<img src="${imgSrc}" alt="${title}">
-					<div class="mediaResults__moreInfo">
-						<a href="${app.infoUrl}${type}/${id}" target="_blank">More Info</a>
-					</div>
+						<button data-title="${title}" data-runtime="${runtime}" class="button__list button__list--remove button__primary"><i class="fas fa-times"></i></button>
 				</div>
 				<div class="showList__info">
-					<h3>${title}</h3>
-					<p>${timeString}</p>
-					<button data-title="${title}" data-runtime="${runtime}" class="button__list button__list--remove button__primary">Remove</button>
+					<h3 class="showList__title">${title}</h3>
+					<p class="showList__runtime">${timeString}</p>
 				</div>
 			</div>
 		`);
@@ -414,6 +420,7 @@ app.getTimeString = (time) => {
 app.init = function() {
 	app.setEventListeners();
 	app.getMediaGenres();
+	app.setButtonText();
 }
 
 // DOCUMENT READY

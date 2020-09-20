@@ -1,6 +1,6 @@
 header { 
 	padding: 3rem 0 6rem;
-	background-color: #032541;
+	background-color: $secondaryBackground;
 	color: $white;
 }
 
@@ -71,11 +71,7 @@ h1 {
 }
 
 .button__commute {
-	// position: absolute;
-	// left: 0;
-	// bottom: -20px;
-
-	
+	width: 20rem;
 }
 
 .directions {

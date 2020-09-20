@@ -1,8 +1,29 @@
 .mediaResults {
-  padding-top: 1rem;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 2rem;
+  
+  border: 2px solid #032541;
+	border-radius: 5px;
+
+  &__top {
+    // border-top-left-radius: 5px;
+    // border-top-right-radius: 5px;
+    // overflow: hidden;
+  }
+
+  &__heading {
+		background-color: #032541;
+		padding: 0.6rem 0;
+		color: $white;
+    text-align: center;
+    // text-transform: uppercase;
+    // letter-spacing: 1px;
+	}
+  
+  &__content {
+    padding: 1rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+  }
 
   &__container > *:not(:last-child) { margin-bottom: .5rem; }
   
@@ -12,10 +33,18 @@
     overflow: hidden;
   }
 
+  &__title {
+    font-size: 1.8rem;
+  }
+
   &__info {
     display: flex;
     justify-content: space-between;
     align-items: baseline;
+  }
+
+  &__runtime {
+    font-family: $secondaryFont;
   }
 
 

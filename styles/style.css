@@ -414,6 +414,10 @@ h1 span {
   width: 20%;
 }
 
+.button__commute {
+  width: 20rem;
+}
+
 .directions {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -454,10 +458,8 @@ form .floatLabel-container {
 
 form input[type="number"],
 form input[type="text"] {
-  color: white;
   width: 100%;
   border: none;
-  border-bottom: 2px solid #FAFFFE;
   background: none;
   position: relative;
   top: 0;
@@ -465,30 +467,6 @@ form input[type="text"] {
   z-index: 1;
   padding: 1.2rem;
   outline: 0;
-}
-
-form input[type="number"]::-webkit-input-placeholder,
-form input[type="text"]::-webkit-input-placeholder {
-  color: #FAFFFE;
-  opacity: 70%;
-}
-
-form input[type="number"]:-ms-input-placeholder,
-form input[type="text"]:-ms-input-placeholder {
-  color: #FAFFFE;
-  opacity: 70%;
-}
-
-form input[type="number"]::-ms-input-placeholder,
-form input[type="text"]::-ms-input-placeholder {
-  color: #FAFFFE;
-  opacity: 70%;
-}
-
-form input[type="number"]::placeholder,
-form input[type="text"]::placeholder {
-  color: #FAFFFE;
-  opacity: 70%;
 }
 
 form input[type="number"]:focus,
@@ -508,6 +486,26 @@ form input[type="text"]:focus + .label__float {
   top: 100%;
   margin-top: -16px;
   opacity: 1;
+}
+
+form input[type="number"]:focus::-webkit-input-placeholder,
+form input[type="text"]:focus::-webkit-input-placeholder {
+  opacity: 0;
+}
+
+form input[type="number"]:focus:-ms-input-placeholder,
+form input[type="text"]:focus:-ms-input-placeholder {
+  opacity: 0;
+}
+
+form input[type="number"]:focus::-ms-input-placeholder,
+form input[type="text"]:focus::-ms-input-placeholder {
+  opacity: 0;
+}
+
+form input[type="number"]:focus::placeholder,
+form input[type="text"]:focus::placeholder {
+  opacity: 0;
 }
 
 form input[type="number"] + .label__float,
@@ -533,6 +531,40 @@ form input[type="text"] + .label__float {
           align-items: center;
 }
 
+.form__search h2 {
+  position: absolute;
+}
+
+.form__search input[type="number"],
+.form__search input[type="text"] {
+  color: #FAFFFE;
+  border-bottom: 2px solid #FAFFFE;
+}
+
+.form__search input[type="number"]::-webkit-input-placeholder,
+.form__search input[type="text"]::-webkit-input-placeholder {
+  color: #FAFFFE;
+  opacity: 70%;
+}
+
+.form__search input[type="number"]:-ms-input-placeholder,
+.form__search input[type="text"]:-ms-input-placeholder {
+  color: #FAFFFE;
+  opacity: 70%;
+}
+
+.form__search input[type="number"]::-ms-input-placeholder,
+.form__search input[type="text"]::-ms-input-placeholder {
+  color: #FAFFFE;
+  opacity: 70%;
+}
+
+.form__search input[type="number"]::placeholder,
+.form__search input[type="text"]::placeholder {
+  color: #FAFFFE;
+  opacity: 70%;
+}
+
 .form__search .search__time,
 .form__search .search__options {
   display: -webkit-box;
@@ -541,18 +573,62 @@ form input[type="text"] + .label__float {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 .form__search .search__options {
   width: 100%;
-  -webkit-box-pack: space-evenly;
-      -ms-flex-pack: space-evenly;
-          justify-content: space-evenly;
   margin-bottom: 1rem;
 }
 
-.form__search h2 {
-  position: absolute;
+.form__search .search__time .button__primary {
+  margin-left: 1rem;
+}
+
+.form__directions {
+  padding-top: 3rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.form__directions input[type="number"],
+.form__directions input[type="text"] {
+  color: #2C2C2C;
+  border-bottom: 2px solid #2C2C2C;
+}
+
+.form__directions input[type="number"]::-webkit-input-placeholder,
+.form__directions input[type="text"]::-webkit-input-placeholder {
+  color: #2C2C2C;
+  opacity: 70%;
+}
+
+.form__directions input[type="number"]:-ms-input-placeholder,
+.form__directions input[type="text"]:-ms-input-placeholder {
+  color: #2C2C2C;
+  opacity: 70%;
+}
+
+.form__directions input[type="number"]::-ms-input-placeholder,
+.form__directions input[type="text"]::-ms-input-placeholder {
+  color: #2C2C2C;
+  opacity: 70%;
+}
+
+.form__directions input[type="number"]::placeholder,
+.form__directions input[type="text"]::placeholder {
+  color: #2C2C2C;
+  opacity: 70%;
 }
 
 input[type="radio"] {
@@ -569,6 +645,7 @@ input[type="radio"] + label {
   border: 2px solid #FAFFFE;
   border-radius: 3rem;
   padding: 0.5rem;
+  margin: 0 1rem;
   width: 7rem;
 }
 
@@ -587,28 +664,49 @@ input[type="radio"]:hover + label {
 
 select {
   padding: 0.5rem 1rem;
+  margin: 1rem;
   border: none;
   border-radius: 1rem;
 }
 
 .button__primary {
   background-color: #f6b44a;
-  color: #2C2C2C;
+  color: #032541;
   border: 2px solid #f6b44a;
   border-radius: 1rem;
   padding: 0.8rem 2.4rem;
   text-transform: uppercase;
+  -webkit-transition: background-color 0.3s;
+  transition: background-color 0.3s;
 }
 
 .button__primary:hover, .button__primary:focus {
-  border: 2px solid #d0840a;
+  background-color: #f8c87b;
 }
 
 .button__primary:active {
-  background-color: #d0840a;
+  background-color: #f4a019;
 }
 
-.button__map:hover, .button__map:focus, .button__commute:hover, .button__commute:focus {
+.button__commute {
+  background-color: #FAFFFE;
+  border: 2px solid #FAFFFE;
+}
+
+.button__commute:focus, .button__commute:hover {
+  border: 2px solid #f8c87b;
+  background-color: #f3f2f0;
+}
+
+.button__commute:active {
+  background-color: #f8c87b;
+}
+
+.button__map {
+  z-index: 200;
+}
+
+.button__map:hover, .button__map:focus {
   opacity: 60%;
 }
 
@@ -616,10 +714,10 @@ select {
   border-color: transparent;
   color: #FAFFFE;
   padding: 0.4rem 0.8rem;
-  font-size: 1.4rem;
 }
 
 .button__list--add {
+  font-size: 1.4rem;
   background-color: #032541;
 }
 
@@ -627,15 +725,42 @@ select {
   background-color: #a10232;
 }
 
+.commuteTime {
+  position: relative;
+}
+
 .directions {
+  color: #2C2C2C;
   z-index: 90;
   background-color: #f3f2f0;
-  border: 2px solid black;
+  border-radius: 1rem;
+  -webkit-box-shadow: -2px 2px 10px #00000070;
+          box-shadow: -2px 2px 10px #00000070;
   position: absolute;
+  right: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 2rem;
 }
 
 .directions.hidden {
   display: none;
+}
+
+.directions .button__map {
+  position: absolute;
+  top: 1.5rem;
+}
+
+.map-container {
+  margin-left: 2rem;
 }
 
 .map {
@@ -650,13 +775,24 @@ select {
   padding-top: 30px;
 }
 
-.map button {
-  position: absolute;
-  top: 0px;
+h2 {
+  font-size: 1.8rem;
 }
 
 .mediaResults {
-  padding-top: 1rem;
+  border: 2px solid #032541;
+  border-radius: 5px;
+}
+
+.mediaResults__heading {
+  background-color: #032541;
+  padding: 0.6rem 0;
+  color: #FAFFFE;
+  text-align: center;
+}
+
+.mediaResults__content {
+  padding: 1rem;
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: (minmax(200px, 1fr))[auto-fit];
@@ -674,6 +810,10 @@ select {
   overflow: hidden;
 }
 
+.mediaResults__title {
+  font-size: 1.8rem;
+}
+
 .mediaResults__info {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -684,6 +824,10 @@ select {
   -webkit-box-align: baseline;
       -ms-flex-align: baseline;
           align-items: baseline;
+}
+
+.mediaResults__runtime {
+  font-family: "Abel", sans-serif;
 }
 
 .mediaResults__moreInfo {
@@ -766,6 +910,20 @@ select {
   position: relative;
 }
 
+.showList__media .imageContainer button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-radius: 0;
+  font-size: 2rem;
+  border-bottom-left-radius: 5px;
+  border-color: #032541;
+}
+
+.showList__media .imageContainer button:hover, .showList__media .imageContainer button:active, .showList__media .imageContainer button:focus {
+  border-color: transparent;
+}
+
 .showList__media__info {
   font-size: 1.4rem;
 }
@@ -776,4 +934,21 @@ select {
 
 .showList__media__info h3 {
   font-size: 1.6rem;
+}
+
+.showList__runtime {
+  font-family: "Abel", sans-serif;
+}
+
+@media (hover: hover) {
+  .showList .imageContainer button {
+    background-color: green;
+    top: 0;
+    right: 0;
+    left: initial;
+    bottom: initial;
+    border-radius: none;
+    font-size: 2rem;
+    border-bottom-left-radius: 5px;
+  }
 }

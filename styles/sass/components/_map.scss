@@ -1,21 +1,41 @@
 
+.commuteTime {
+	position: relative;
+}
+
 .directions {
+	color: $black;
+
 	z-index: 90;
 
 	background-color: $primaryBackground;
-	border: 2px solid black;
+	// border: 2px solid black;
+	border-radius: 1rem;
+
+	box-shadow: -2px 2px 10px $shadow;
 
 	position: absolute;
+	right: 0;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	// flex-direction: row-reverse;
+
+	padding: 2rem;
 
 	&.hidden {
 		display: none;
 	}
+
+	.button__map {
+		position: absolute;
+		top: 1.5rem;
+	}
 }
 
 .map-container {
-	// position: absolute;
-	// right: 400px;
-	// top: 100px;
+	margin-left: 2rem;
 }
 
 .map {
@@ -27,11 +47,8 @@
 
 	padding-top: 30px;
 	// border: 2px solid black;
-
-
-	button {
-		position: absolute;
-		top: 0px;
-	}
 }
 
+h2 {
+	font-size: 1.8rem;
+}

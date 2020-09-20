@@ -76,57 +76,64 @@
 								<label class="label__float" for="travelMinutes">Minutes</label>
 							</div>
 
-							<!-- Submit -->
+							<!-- Submit button -->
 							<button class="button__primary" type="submit">Search</button>
 
-							<button class="button__primary button__commute">How long is my commute?</button>
 						</div>
-		
 					</div>
-				</form>
-			</div>
-			
-			<!-- Directions -->
-			<div class="directions hidden">
-				<form class="form__directions" action="#">
-					<h2>Find your commute time:</h2>
-					<!-- Origin -->
-					<div class="floatLabel-container">
-						<input type="text" name="origin" id="origin" placeholder="Origin" required>
-						<label class="label__float" for="origin">Origin</label>
-					</div>
-				
-					<!-- Destination -->
-					<div class="floatLabel-container">
-						<input type="text" name="destination" id="destination" placeholder="Destination" required>
-						<label class="label__float" for="destination">Destination</label>
-					</div>
-				
-					<!-- Travel Mode -->
-					<div>
-						<label for="travelMode" class="sr-only">Travel mode</label>
-						<select name="travelMode" id="travelMode">
-							<option value="driving">Driving</option>
-							<option value="walking">Walking</option>
-							<option value="bicycling">Bicycling</option>
-							<option value="transit">Transit</option>
-							<option value="flying">Flying</option>
-						</select>
-					</div>
-			
-					<!-- Submit -->
-					<button class="button__primary" type="submit">Submit</button>
 				</form>
 
-				<div class="map-container">
-					<div class="map hidden">
-						<!-- google map generated here -->
+				<div class="commuteTime">
+					<!-- find commute time button (map) -->
+					<button class="button__primary button__commute">
+						<p>How long is my commute?</p>
+						<i class="fas fa-map-marked-alt"></i>
+					</button>
+	
+					<!-- Directions -->
+					<div class="directions hidden">
+						<form class="form__directions" action="#">
+							<h2>Find your commute time:</h2>
+							<!-- Origin -->
+							<div class="floatLabel-container">
+								<input type="text" name="origin" id="origin" placeholder="Origin" required>
+								<label class="label__float" for="origin">Origin</label>
+							</div>
+	
+							<!-- Destination -->
+							<div class="floatLabel-container">
+								<input type="text" name="destination" id="destination" placeholder="Destination" required>
+								<label class="label__float" for="destination">Destination</label>
+							</div>
+	
+							<!-- Travel Mode -->
+							<div>
+								<label for="travelMode" class="sr-only">Travel mode</label>
+								<select name="travelMode" id="travelMode">
+									<option value="driving">Driving</option>
+									<option value="walking">Walking</option>
+									<option value="bicycling">Bicycling</option>
+									<option value="transit">Transit</option>
+									<option value="flying">Flying</option>
+								</select>
+							</div>
+	
+							<!-- Submit -->
+							<button class="button__primary" type="submit">Submit</button>
+						</form>
+	
+						<div class="map-container">
+							<div class="map hidden">
+								<!-- google map generated here -->
+							</div>
+						</div>
 					</div>
 				</div>
+
+
+
 			</div>
-
-
-
+			
 		</div>
   </header>
 
@@ -136,14 +143,20 @@
 				
 			<div class="content">
 				<section class="mediaResults">
-					<!-- media results generated here -->
+					<div class="mediaResults__top">
+						<h2 class="mediaResults__heading">Search Results</h2>
+					</div>
+					<div class="mediaResults__content">
+						<!-- media results generated here -->
+						<p>Click the <span>Find</span> button to get a list of suggestions!</p>
+					</div>
 				</section>
 	
 				<aside class="sidebar">
 					<div class="sidebar__top">
 						<h2 class="sidebar__title">List</h2>
 						<!-- total time -->
-						<p class="sidebar__time">Total time: <span class="totalTime">0m</span></p>
+						<p class="sidebar__time">Watch Time: <span class="totalTime">0m</span></p>
 					</div>
 					<div class="sidebar__content">
 						<!-- sidebar content generated here -->

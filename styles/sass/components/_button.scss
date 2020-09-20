@@ -1,7 +1,7 @@
 .button{
 	&__primary {
 		background-color: $buttonColor;
-		color: $black;
+		color: $secondaryBackground;
 
 		border: 2px solid $buttonColor;
 		border-radius: 1rem;
@@ -9,10 +9,27 @@
 		padding: 0.8rem 2.4rem;
 
 		text-transform: uppercase;
+		transition: background-color 0.3s;
 
 		&:hover,
 		&:focus {
+			// border: 2px solid $buttonHover;
+			background-color: $buttonHover;
+		}
+
+		&:active {
+			background-color: $buttonActive;
+		}
+	}
+
+  &__commute {
+		background-color: $white;
+		border: 2px solid $white;
+
+		&:focus,
+		&:hover {
 			border: 2px solid $buttonHover;
+			background-color: $primaryBackground;
 		}
 
 		&:active {
@@ -20,8 +37,9 @@
 		}
 	}
 
-	&__map,
-  &__commute {
+	&__map {
+		z-index: 200;
+		
 		&:hover,
 		&:focus {
 			opacity: 60%;
@@ -32,9 +50,9 @@
 		border-color: transparent;
     color: $white;
 		padding: 0.4rem 0.8rem;
-		font-size: 1.4rem;
-
+		
 		&--add {
+			font-size: 1.4rem;
 			background-color: #032541;
 		}
 
@@ -43,33 +61,3 @@
 		}
 	}
 }
-
-
-// button:not(.button__map):not(.button__commute) {
-// 	background-color: $buttonColor;
-
-// 	border: 2px solid $buttonColor;
-// 	border-radius: 1rem;
-
-// 	padding: 0.8rem 2.4rem;
-
-// 	text-transform: uppercase;
-
-// 	&:hover,
-// 	&:focus {
-// 		border: 2px solid $buttonHover;
-// 	}
-
-// 	&:active {
-// 		background-color: $buttonHover;
-// 	}
-// }
-
-// .button__map,
-// .button__commute {
-	
-// 	&:hover,
-// 	&:focus {
-// 		opacity: 60%;
-// 	}
-// }

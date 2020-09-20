@@ -152,7 +152,7 @@ app.displayMovieData = (results) => {
 		const imageSrc = backdrop_path ? app.movieImageUrl + backdrop_path : app.movieImageUrl + poster_path;
 
 		$mediaResults.append(`
-			<div class="mediaResults__container" data-runtime="${mediaRuntime}">
+			<div class="mediaResults__container" data-id="${id}" data-type="${mediaType}" data-runtime="${mediaRuntime}">
 				<h2>${mediaTitle}</h2>
 				<div class="imageContainer">
 					<img src=${imageSrc} alt="${mediaTitle}">
@@ -289,32 +289,40 @@ app.setEventListeners = () => {
 	$('.mediaResults').on('click', 'button', function() {
 		// const title = $(this).parent().parent()
 		const $mediaContainer = $(this).parent().parent();
+		const id = $mediaContainer.data('id');
+		const type = $mediaContainer.data('type');
 		const title = $mediaContainer.find('h2').text();
 		const imgSrc = $mediaContainer.find('img').attr('src');
 		const runtime = $mediaContainer.data('runtime');
 		const timeString = $mediaContainer.find('.mediaResults__info p').text();
 
-		const selectedMedia = {
-			title,
-			imgSrc,
-			runtime,
-			timeString
+		
+		// check if the media has already been added to the list
+		if (!app.mediaList.find(media => media.id === id)) {
+			// if not found add the media to the mediaList
+				const selectedMedia = {
+					id,
+					type,
+					title,
+					imgSrc,
+					runtime,
+					timeString
+				}
+
+			app.mediaList.push(selectedMedia);
+			app.mediaListRuntime += runtime;
+			app.displayMediaList();
 		}
-
-		// TODO prevent duplicate entries?
-
-		app.mediaList.push(selectedMedia);
-		app.mediaListRuntime += runtime;
-		app.displayMediaList();
 	})
 
 	// remove item from list when button is clicked
 	$('.sidebar__content').on('click', '.showList__button', function() {
-		const mediaTitle = $(this).data('title');
-		const mediaRuntime = $(this).data('runtime');
+		const $mediaContainer = $(this).parent().parent();
+		const id = $mediaContainer.data('id');
+		const runtime = $mediaContainer.data('runtime');
 
-		app.mediaList = app.mediaList.filter(media => media.title !== mediaTitle);
-		app.mediaListRuntime -= mediaRuntime;
+		app.mediaList = app.mediaList.filter(media => media.id !== id);
+		app.mediaListRuntime -= runtime;
 
 		app.displayMediaList();
 	});
@@ -326,19 +334,20 @@ app.displayMediaList = () => {
 
 	$sidebarContent.empty();
 
-	app.mediaList.forEach(({title, imgSrc, runtime, timeString}) => {
+	app.mediaList.forEach(({id, type, title, imgSrc, runtime, timeString}) => {
 
 		$sidebarContent.append(`
-			<div class="showList__media">
+			<div class="showList__media" data-id="${id}" data-runtime="${runtime}">
 				<div class="imageContainer">
 					<img src="${imgSrc}" alt="${title}">
-					<div class="showList__mediaOptions">
-						<button data-title="${title}" data-runtime="${runtime}" class="showList__button">Remove</button>
+					<div class="mediaResults__moreInfo">
+						<a href="${app.infoUrl}${type}/${id}" target="_blank">More Info</a>
 					</div>
 				</div>
 				<div class="mediaInfo">
 					<h3>${title}</h3>
 					<p>${timeString}</p>
+					<button data-title="${title}" data-runtime="${runtime}" class="showList__button">Remove</button>
 				</div>
 			</div>
 		`);

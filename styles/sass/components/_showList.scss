@@ -2,45 +2,50 @@
 
   & > *:not(:last-child) { margin-bottom: 1rem; }
   &__media {
-    padding: 1rem;
+    padding: 1rem 0;
     display: flex;
+    flex-wrap: wrap;
     // justify-content: space-between;
     
     &:first-child { margin-right: 1rem; }
     
-    .imgContainer {
+    .imageContainer {
       position: relative;
       min-width: 100px;
-      width: 100%;
+      width: 50%;
     }
     
-    &__mediaOptions {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background-color: rgba(0,0,0,0.4);
-
-      opacity: 0;
-      transition: opacity 0.3s;
-
-      &:hover {
-        opacity: 1;
-      }
-
-    }
     
-    &__button {
-      padding: 0;
-      background-color: transparent;
-      border: none;
-      color: red;
+    
+  }
+
+  &__mediaOptions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0,0,0,0.4);
+
+    opacity: 0;
+    transition: opacity 0.3s;
+
+    &:hover {
+      opacity: 1;
     }
 
-
+  }
+  
+  &__button {
+    // TODO adjust specificity or alternative to remove the !important
+    padding: 0 !important;
+    background-color: transparent !important;
+    border: none !important;
+    color: $white;
+    letter-spacing: 1px;
+    // font-size: 30px;
   }
 }

@@ -291,47 +291,62 @@ app.setEventListeners = () => {
 		const $mediaContainer = $(this).parent().parent();
 		const title = $mediaContainer.find('h2').text();
 		const imgSrc = $mediaContainer.find('img').attr('src');
-		const runtime = $mediaContainer.find('.mediaResults__info p').text();
+		const runtime = $mediaContainer.data('runtime');
+		const timeString = $mediaContainer.find('.mediaResults__info p').text();
 
 		const selectedMedia = {
 			title,
 			imgSrc,
-			runtime
+			runtime,
+			timeString
 		}
-		// console.log('add to list button clicked', title, imgSrc, runtime);
+
+		// TODO prevent duplicate entries?
 
 		app.mediaList.push(selectedMedia);
-		app.mediaListRuntime += $mediaContainer.data('runtime');
-
-		const timeString = app.getTimeString(app.mediaListRuntime);
-
-		$('.totalTime').text(timeString);
-
-		// TODO move this to a separate method to display added shows
-		const $sidebarContent = $('.sidebar__content');
-
-		$sidebarContent.append(`
-			<div class="showList__media">
-				<div class="imgContainer">
-					<img src="${imgSrc}" alt="${title}">
-					<div class="showList__mediaOptions">
-						<button data-id="${title}" class="showList__button"><i class="fas fa-minus-circle"></i></button>
-					</div>
-				</div>
-				<div class="mediaInfo">
-					<h3>${title}</h3>
-					<p>${runtime}</p>
-				</div>
-			</div>
-		`);
+		app.mediaListRuntime += runtime;
+		app.displayMediaList();
 	})
 
 	// remove item from list when button is clicked
 	$('.sidebar__content').on('click', '.showList__button', function() {
-		
-	})
+		const mediaTitle = $(this).data('title');
+		const mediaRuntime = $(this).data('runtime');
+
+		app.mediaList = app.mediaList.filter(media => media.title !== mediaTitle);
+		app.mediaListRuntime -= mediaRuntime;
+
+		app.displayMediaList();
+	});
 
 };
+
+app.displayMediaList = () => {
+	const $sidebarContent = $('.sidebar__content');
+
+	$sidebarContent.empty();
+
+	app.mediaList.forEach(({title, imgSrc, runtime, timeString}) => {
+
+		$sidebarContent.append(`
+			<div class="showList__media">
+				<div class="imageContainer">
+					<img src="${imgSrc}" alt="${title}">
+					<div class="showList__mediaOptions">
+						<button data-title="${title}" data-runtime="${runtime}" class="showList__button">Remove</button>
+					</div>
+				</div>
+				<div class="mediaInfo">
+					<h3>${title}</h3>
+					<p>${timeString}</p>
+				</div>
+			</div>
+		`);
+	});
+
+	const timeString = app.getTimeString(app.mediaListRuntime);
+	$('.totalTime').text(timeString);
+}
 
 
 // https://www.google.com/maps/embed/v1/directions?origin=place_id:ChIJX4Ud3M4rK4gRTORiU8rXyDM&destination=place_id:ChIJJbMiZUwqK4gRb_p9AN3xc2I&key=AIzaSyCPyZS2Eotm8pA650bXUbFEvwil8WvTpbE

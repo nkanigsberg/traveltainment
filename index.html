@@ -61,13 +61,15 @@
 						
 						<!-- enter commute time -->
 						<div class="search__time">
-							<h2>Enter commute time:</h2>
+							<!-- <h2>Enter commute time:</h2> -->
 							<!-- Hours -->
 							<div class="floatLabel-container">
 								<input type="number" id="travelHours" name="travelHours" placeholder="Hours">
 								<label class="label__float" for="travelHours">Hours</label>
 							</div>
 						
+							:
+
 							<!-- Minutes -->
 							<div class="floatLabel-container">
 								<input type="number" id="travelMinutes" name="travelMinutes" placeholder="Minutes">
@@ -77,7 +79,7 @@
 							<!-- Submit -->
 							<button class="button__primary" type="submit">Search</button>
 
-							<button class="button__commute">Find your commute time</button>
+							<button class="button__primary button__commute">How long is my commute?</button>
 						</div>
 		
 					</div>
@@ -138,12 +140,14 @@
 				</section>
 	
 				<aside class="sidebar">
-					<h2>List</h2>
+					<div class="sidebar__top">
+						<h2 class="sidebar__title">List</h2>
+						<!-- total time -->
+						<p class="sidebar__time">Total time: <span class="totalTime">0m</span></p>
+					</div>
 					<div class="sidebar__content">
 						<!-- sidebar content generated here -->
 					</div>
-					<!-- total time -->
-					<p>Total time: <span class="totalTime">0m</span></p>
 				</aside>
 			</div>
 

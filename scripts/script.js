@@ -344,7 +344,7 @@ app.displayMediaList = () => {
 						<a href="${app.infoUrl}${type}/${id}" target="_blank">More Info</a>
 					</div>
 				</div>
-				<div class="mediaInfo">
+				<div class="showList__info">
 					<h3>${title}</h3>
 					<p>${timeString}</p>
 					<button data-title="${title}" data-runtime="${runtime}" class="button__list button__list--remove button__primary">Remove</button>

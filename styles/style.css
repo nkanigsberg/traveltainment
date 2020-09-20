@@ -410,10 +410,8 @@ h1 span {
   position: relative;
 }
 
-.button__commute {
-  position: absolute;
-  left: 0;
-  bottom: -20px;
+.search__time .floatLabel-container {
+  width: 20%;
 }
 
 .directions {
@@ -456,15 +454,41 @@ form .floatLabel-container {
 
 form input[type="number"],
 form input[type="text"] {
+  color: white;
   width: 100%;
-  border: 2px solid grey;
-  background-color: #FAFFFE;
+  border: none;
+  border-bottom: 2px solid #FAFFFE;
+  background: none;
   position: relative;
   top: 0;
   left: 0;
   z-index: 1;
   padding: 1.2rem;
   outline: 0;
+}
+
+form input[type="number"]::-webkit-input-placeholder,
+form input[type="text"]::-webkit-input-placeholder {
+  color: #FAFFFE;
+  opacity: 70%;
+}
+
+form input[type="number"]:-ms-input-placeholder,
+form input[type="text"]:-ms-input-placeholder {
+  color: #FAFFFE;
+  opacity: 70%;
+}
+
+form input[type="number"]::-ms-input-placeholder,
+form input[type="text"]::-ms-input-placeholder {
+  color: #FAFFFE;
+  opacity: 70%;
+}
+
+form input[type="number"]::placeholder,
+form input[type="text"]::placeholder {
+  color: #FAFFFE;
+  opacity: 70%;
 }
 
 form input[type="number"]:focus,
@@ -483,6 +507,7 @@ form input[type="text"]:focus + .label__float {
   text-transform: uppercase;
   top: 100%;
   margin-top: -16px;
+  opacity: 1;
 }
 
 form input[type="number"] + .label__float,
@@ -492,6 +517,7 @@ form input[type="text"] + .label__float {
   position: absolute;
   color: #999;
   padding: 7px 6px;
+  opacity: 0;
   top: 0;
   bottom: 0;
   left: 0;
@@ -535,22 +561,34 @@ input[type="radio"] {
 }
 
 input[type="radio"] + label {
+  cursor: pointer;
   text-align: center;
   display: inline-block;
   background-color: #FAFFFE;
   color: #2C2C2C;
   border: 2px solid #FAFFFE;
   border-radius: 3rem;
-  padding: 1rem;
+  padding: 0.5rem;
   width: 7rem;
 }
 
 input[type="radio"] + label p {
-  font-size: 1.4rem;
+  font-size: 1.2rem;
 }
 
 input[type="radio"]:checked + label {
   border: 2px solid #D40242;
+}
+
+input[type="radio"]:focus + label,
+input[type="radio"]:hover + label {
+  background-color: #f3f2f0;
+}
+
+select {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 1rem;
 }
 
 .button__primary {
@@ -683,8 +721,28 @@ input[type="radio"]:checked + label {
 
 .sidebar {
   border: 2px solid #d40242;
-  padding: 1rem 1rem;
+  border-radius: 5px;
   height: 100%;
+}
+
+.sidebar__content {
+  padding: 0 1rem;
+}
+
+.sidebar__title {
+  background-color: #d40242;
+  padding: 0.6rem 0;
+  color: #FAFFFE;
+  text-align: center;
+}
+
+.sidebar__time {
+  padding: 0 1rem;
+  margin-top: 0.8rem;
+}
+
+.sidebar__time span {
+  color: #d40242;
 }
 
 .showList > *:not(:last-child) {
@@ -706,9 +764,16 @@ input[type="radio"]:checked + label {
 
 .showList__media .imageContainer {
   position: relative;
-  min-width: 100px;
-  width: 50%;
-  position: relative;
-  border-radius: 5px;
-  overflow: hidden;
+}
+
+.showList__media__info {
+  font-size: 1.4rem;
+}
+
+.showList__media__info > *:not(:last-child) {
+  margin-bottom: .5rem;
+}
+
+.showList__media__info h3 {
+  font-size: 1.6rem;
 }

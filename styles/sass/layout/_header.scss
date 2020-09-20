@@ -64,12 +64,18 @@ h1 {
 }
 .search__time {
 	position: relative;
+
+	.floatLabel-container {
+		width: 20%;
+	}
 }
 
 .button__commute {
-	position: absolute;
-	left: 0;
-	bottom: -20px;
+	// position: absolute;
+	// left: 0;
+	// bottom: -20px;
+
+	
 }
 
 .directions {

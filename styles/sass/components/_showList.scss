@@ -14,13 +14,13 @@
     
     .imageContainer {
       position: relative;
-      min-width: 100px;
-      width: 50%;
-      position: relative;
-      border-radius: 5px;
-      overflow: hidden;
+    }
+
+    &__info {
+      & > *:not(:last-child) { margin-bottom: .5rem;}
+      font-size: 1.4rem;
+      h3 { font-size: 1.6rem}
     }
     
-     
   }
 }

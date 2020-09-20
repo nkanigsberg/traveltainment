@@ -1,10 +1,29 @@
 .sidebar {
 	border: 2px solid #d40242;
-	padding: 1rem 1rem;
+	border-radius: 5px;
+	// padding: 1rem 1rem;
 	// width: 25%;
 
 	// margin: 0 0 0 auto;
 	// float: right;
 
 	height: 100%;
+
+	&__content {
+		padding: 0 1rem;
+	}
+
+	&__title {
+		background-color: #d40242;
+		padding: 0.6rem 0;
+		color: $white;
+		text-align: center;
+	}
+
+	&__time {
+		padding: 0 1rem;
+		margin-top: 0.8rem;
+		span { color: #d40242;}
+	}
+		
 }

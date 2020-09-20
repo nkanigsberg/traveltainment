@@ -635,9 +635,5 @@ button:not(.button__map):not(.button__commute):active {
 }
 
 .showList__button {
-  padding: 0 !important;
-  background-color: transparent !important;
-  border: none !important;
-  color: #FAFFFE;
   letter-spacing: 1px;
 }

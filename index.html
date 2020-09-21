@@ -59,33 +59,36 @@
 						</div>
 
 						
-						<!-- enter commute time -->
-						<div class="search__time">
-							<!-- <h2>Enter commute time:</h2> -->
-							<!-- Hours -->
-							<div class="floatLabel-container">
-								<input type="number" id="travelHours" name="travelHours" placeholder="Hours">
-								<label class="label__float" for="travelHours">Hours</label>
+						<div class="search__time__container">
+							<!-- enter commute time -->
+							<div class="search__time">
+								<!-- Hours -->
+								<div class="floatLabel-container">
+									<input type="number" id="travelHours" name="travelHours" placeholder="Hours">
+									<label class="label__float" for="travelHours">Hours</label>
+								</div>
+							
+								:
+	
+								<!-- Minutes -->
+								<div class="floatLabel-container">
+									<input type="number" id="travelMinutes" name="travelMinutes" placeholder="Minutes">
+									<label class="label__float" for="travelMinutes">Minutes</label>
+								</div>
+	
+								<!-- Submit button -->
+								<button class="button__primary" type="submit">Search</button>
+	
+								<p class="instruction">Enter your travel time here</p>
 							</div>
-						
-							:
-
-							<!-- Minutes -->
-							<div class="floatLabel-container">
-								<input type="number" id="travelMinutes" name="travelMinutes" placeholder="Minutes">
-								<label class="label__float" for="travelMinutes">Minutes</label>
-							</div>
-
-							<!-- Submit button -->
-							<button class="button__primary" type="submit">Search</button>
-
 						</div>
 					</div>
 				</form>
 
+
 				<div class="commuteTime">
 					<!-- find commute time button (map) -->
-					<button class="button__primary button__commute">
+					<button class="button__commute">
 						<p>How long is my commute?</p>
 						<i class="fas fa-map-marked-alt"></i>
 					</button>
@@ -156,10 +159,11 @@
 					<div class="sidebar__top">
 						<h2 class="sidebar__title">List</h2>
 						<!-- total time -->
-						<p class="sidebar__time">Watch Time: <span class="totalTime">0m</span></p>
 					</div>
 					<div class="sidebar__content">
 						<!-- sidebar content generated here -->
+						<p class="sidebar_text">Click the Add To List button!</p>
+						
 					</div>
 				</aside>
 			</div>

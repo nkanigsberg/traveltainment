@@ -313,6 +313,11 @@ h2 {
   font-size: 2rem;
 }
 
+button {
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
 .wrapper {
   margin: 0 auto;
   width: 85%;
@@ -325,6 +330,10 @@ body {
 
 .hidden {
   display: none;
+}
+
+.attention {
+  color: #D40242;
 }
 
 /* Chrome, Safari, Edge, Opera */
@@ -340,7 +349,7 @@ input[type=number] {
 }
 
 header {
-  padding: 3rem 0 6rem;
+  padding: 2rem 0 5rem;
   background-color: #032541;
   color: #FAFFFE;
 }
@@ -398,7 +407,6 @@ h1 span {
 }
 
 .form__search {
-  width: calc(30rem + 20%);
   padding-left: 1rem;
 }
 
@@ -412,10 +420,6 @@ h1 span {
 
 .search__time .floatLabel-container {
   width: 20%;
-}
-
-.button__commute {
-  width: 20rem;
 }
 
 .directions {
@@ -531,8 +535,11 @@ form input[type="text"] + .label__float {
           align-items: center;
 }
 
-.form__search h2 {
+.form__search .instruction {
   position: absolute;
+  bottom: -2.7rem;
+  left: 0;
+  width: 20rem;
 }
 
 .form__search input[type="number"],
@@ -573,9 +580,9 @@ form input[type="text"] + .label__float {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
 }
 
 .form__search .search__options {
@@ -641,7 +648,7 @@ input[type="radio"] + label {
   text-align: center;
   display: inline-block;
   background-color: #FAFFFE;
-  color: #2C2C2C;
+  color: #032541;
   border: 2px solid #FAFFFE;
   border-radius: 3rem;
   padding: 0.5rem;
@@ -670,6 +677,8 @@ select {
 }
 
 .button__primary {
+  font-size: 1.8rem;
+  letter-spacing: 0.05em;
   background-color: #f6b44a;
   color: #032541;
   border: 2px solid #f6b44a;
@@ -689,8 +698,12 @@ select {
 }
 
 .button__commute {
+  width: 18rem;
+  padding: 1rem;
   background-color: #FAFFFE;
+  color: #032541;
   border: 2px solid #FAFFFE;
+  border-radius: 2rem;
 }
 
 .button__commute:focus, .button__commute:hover {
@@ -704,6 +717,8 @@ select {
 
 .button__map {
   z-index: 200;
+  position: absolute;
+  top: 1.5rem;
 }
 
 .button__map:hover, .button__map:focus {
@@ -741,22 +756,11 @@ select {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
   padding: 2rem;
 }
 
 .directions.hidden {
   display: none;
-}
-
-.directions .button__map {
-  position: absolute;
-  top: 1.5rem;
 }
 
 .map-container {
@@ -870,7 +874,7 @@ h2 {
 }
 
 .sidebar__content {
-  padding: 0 1rem;
+  padding: 1rem;
 }
 
 .sidebar__title {
@@ -878,11 +882,6 @@ h2 {
   padding: 0.6rem 0;
   color: #FAFFFE;
   text-align: center;
-}
-
-.sidebar__time {
-  padding: 0 1rem;
-  margin-top: 0.8rem;
 }
 
 .sidebar__time span {

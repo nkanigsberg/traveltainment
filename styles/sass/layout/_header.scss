@@ -1,5 +1,5 @@
 header { 
-	padding: 3rem 0 6rem;
+	padding: 2rem 0 5rem;
 	background-color: $secondaryBackground;
 	color: $white;
 }
@@ -54,7 +54,7 @@ h1 {
 }
 
 .form__search {
-	width: calc(30rem + 20%);
+	// width: calc(30rem + 20%);
 
 	padding-left: 1rem;
 	
@@ -62,16 +62,13 @@ h1 {
 	#genres { min-width: 160px; }
 
 }
+
 .search__time {
 	position: relative;
 
 	.floatLabel-container {
 		width: 20%;
 	}
-}
-
-.button__commute {
-	width: 20rem;
 }
 
 .directions {

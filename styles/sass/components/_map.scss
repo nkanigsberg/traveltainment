@@ -18,19 +18,11 @@
 	right: 0;
 
 	display: flex;
-	justify-content: center;
-	align-items: center;
-	// flex-direction: row-reverse;
 
 	padding: 2rem;
 
 	&.hidden {
 		display: none;
-	}
-
-	.button__map {
-		position: absolute;
-		top: 1.5rem;
 	}
 }
 

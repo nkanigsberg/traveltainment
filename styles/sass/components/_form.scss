@@ -71,11 +71,16 @@ form {
 
 .form {
 	&__search {
+
 		display: flex;
 		align-items: center;
 
-		h2 {
+		.instruction {
 			position: absolute;
+			bottom: -2.7rem;
+			left: 0;
+
+			width: 20rem;
 		}
 
 		input[type="number"],
@@ -94,7 +99,7 @@ form {
 		.search__options {
 			display: flex;
 			align-items: center;
-			justify-content: center;
+			justify-content: flex-start;
 		}
 
 		.search__options {
@@ -143,7 +148,7 @@ input[type="radio"] {
 		display: inline-block;
 
 		background-color: $white;
-		color: $black;
+		color: $secondaryBackground;
 		border: 2px solid $white;
 		border-radius: 3rem;
 		

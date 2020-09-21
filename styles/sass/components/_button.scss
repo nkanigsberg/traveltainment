@@ -1,5 +1,8 @@
 .button{
 	&__primary {
+		font-size: 1.8rem;
+		letter-spacing: 0.05em;
+
 		background-color: $buttonColor;
 		color: $secondaryBackground;
 
@@ -23,8 +26,14 @@
 	}
 
   &__commute {
+		width: 18rem;
+
+		padding: 1rem;
+		
 		background-color: $white;
+		color: $secondaryBackground;
 		border: 2px solid $white;
+		border-radius: 2rem;
 
 		&:focus,
 		&:hover {
@@ -39,7 +48,11 @@
 
 	&__map {
 		z-index: 200;
-		
+		position: absolute;
+		top: 1.5rem;
+		// justify-self: flex-end;
+		// align-self: flex-end;
+
 		&:hover,
 		&:focus {
 			opacity: 60%;

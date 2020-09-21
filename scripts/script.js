@@ -12,6 +12,7 @@ app.genres = {
 
 app.mediaList = [];
 app.mediaListRuntime = 0;
+app.userTravelTime = 0;
 
 
 /*
@@ -113,9 +114,9 @@ app.displayMovieData = (results) => {
 
 	console.log(results);
 
-	const newArray = results.slice(0, 10);
+	// const newArray = results.slice(0, 10);
 
-	newArray.forEach(({id, title, name, backdrop_path, poster_path, runtime, episode_run_time}) => {
+	results.forEach(({id, title, name, backdrop_path, poster_path, runtime, episode_run_time}) => {
 		const mediaTitle = title ? title : name;
 		const mediaRuntime = runtime ? runtime: episode_run_time[0];
 		const mediaType = runtime ? "movie" : "tv";
@@ -214,6 +215,13 @@ app.setEventListeners = () => {
 		const minutes = parseInt($minuteInput.val()) || 0;
 
 		const time = (hours * 60) + minutes;
+		app.userTravelTime = time;
+		if (app.mediaList.length) {
+			// const remainingTime = app.userTravelTime - app.mediaListRuntime;
+			// const remainingTimeString = app.getTimeString(remainingTime);
+			// $('.totalTime--user').text(remainingTimeString);
+			app.displayMediaTime();
+		}
 
 		const type = $mediaType.val();
 
@@ -234,6 +242,11 @@ app.setEventListeners = () => {
 		app.getMovieData(type, searchFilter);
 
 		$directions.addClass('hidden');
+
+		// if time entered is greater than time in list, remove attention class
+		if (time > app.mediaListRuntime) {
+			$('.instruction').removeClass('attention');
+		}
 
 	});
 	
@@ -300,7 +313,7 @@ app.setEventListeners = () => {
 
 		
 		// check if the media has already been added to the list
-		if (!app.mediaList.find(media => media.id === id)) {
+		// if (!app.mediaList.find(media => media.id === id)) {
 			// if not found add the media to the mediaList
 				const selectedMedia = {
 					id,
@@ -314,7 +327,7 @@ app.setEventListeners = () => {
 			app.mediaList.push(selectedMedia);
 			app.mediaListRuntime += runtime;
 			app.displayMediaList();
-		}
+		// } // end conditional to check if media was already selecte
 	})
 
 	// remove item from list when button is clicked
@@ -324,7 +337,10 @@ app.setEventListeners = () => {
 		const runtime = $mediaContainer.data('runtime');
 
 		app.mediaList = app.mediaList.filter(media => media.id !== id);
-		app.mediaListRuntime -= runtime;
+		// app.mediaListRuntime -= runtime;
+		app.mediaListRuntime = app.mediaList.reduce((accum, {runtime}) => {
+			return accum += runtime
+		}, 0);
 
 		app.displayMediaList();
 	});
@@ -338,17 +354,33 @@ app.setEventListeners = () => {
 app.displayMediaList = () => {
 	const $sidebarContent = $('.sidebar__content');
 
-	$sidebarContent.empty();
+	let mediaListText;
+
+	if (app.mediaList.length && app.userTravelTime) {
+		mediaListText = `
+		<p class="sidebar__time">Total List Time: <span class="totalTime"></span></p>
+		<p class="sidebar__time">Time Remaining: <span class="totalTime--user">${app.userTravelTime}</span></p>` 
+	}
+	else if (app.mediaList.length) {
+		mediaListText = `<p class="sidebar__time">Total List Time: <span class="totalTime"></span></p>`
+	}
+	else {
+		mediaListText = `<p class="sidebar__text">Click the Add To List button!</p>`;
+	}
+
+	$sidebarContent
+		.empty()
+		.append(mediaListText);
 
 	app.mediaList.forEach(({id, type, title, imgSrc, runtime, timeString}) => {
-		// <div class="mediaResults__moreInfo">
-		// 	<a href="${app.infoUrl}${type}/${id}" target="_blank">More Info</a>
-		// 	</div>
-
+		
 		$sidebarContent.append(`
-			<div class="showList__media" data-id="${id}" data-runtime="${runtime}">
-				<div class="imageContainer">
-					<img src="${imgSrc}" alt="${title}">
+		<div class="showList__media" data-id="${id}" data-runtime="${runtime}">
+		<div class="imageContainer">
+		<img src="${imgSrc}" alt="${title}">
+		 <div class="mediaResults__moreInfo">
+		 	<a href="${app.infoUrl}${type}/${id}" target="_blank">More Info</a>
+		 	</div>
 						<button data-title="${title}" data-runtime="${runtime}" class="button__list button__list--remove button__primary"><i class="fas fa-times"></i></button>
 				</div>
 				<div class="showList__info">
@@ -359,10 +391,33 @@ app.displayMediaList = () => {
 		`);
 	});
 
-	const timeString = app.getTimeString(app.mediaListRuntime);
-	$('.totalTime').text(timeString);
+	// const listTimeString = app.getTimeString(app.mediaListRuntime);
+	// const remainingTimeString = app.getTimeString(app.userTravelTime - app.mediaListRuntime);
+	// $('.totalTime').text(listTimeString);
+	// $('.totalTime--user').text(remainingTimeString);
+
+	app.displayMediaTime();
 }
 
+app.displayMediaTime = () => {
+	const listTimeString = app.getTimeString(app.mediaListRuntime);
+
+	const timeRemaining = app.userTravelTime - app.mediaListRuntime;
+
+	const travelTime = app.getTimeString(app.userTravelTime);
+
+	const timeRemainingString = timeRemaining >= 0 
+		? app.getTimeString(timeRemaining)
+		: "Time Exceeded";
+
+	$('.totalTime').text(`${listTimeString} / ${travelTime}`);
+	$('.totalTime--user').text(timeRemainingString);
+
+	// if user has not entered time and there are shows in list, add attention to instruction
+	if (!app.userTravelTime && timeRemaining < 0) {
+		$('.instruction').addClass('attention');
+	};
+}
 
 // https://www.google.com/maps/embed/v1/directions?origin=place_id:ChIJX4Ud3M4rK4gRTORiU8rXyDM&destination=place_id:ChIJJbMiZUwqK4gRb_p9AN3xc2I&key=AIzaSyCPyZS2Eotm8pA650bXUbFEvwil8WvTpbE
 
@@ -398,7 +453,10 @@ app.populateMediaGenres = () => {
 
 	
 	const $genres = $('#genres');
-	$genres.empty().append(`<option value="" selected disabled hidden>Select Genre</option>`);
+	$genres.empty().append(`
+		<option value="" selected disabled hidden>Select Genre</option>
+		<option value="" >Any Genre</option>
+	`);
 	app.genres[mediaType].forEach(({id, name}) => {
 		// console.log(id, name);
 		$genres.append(`<option value="${id}">${name}</option>`);

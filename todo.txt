@@ -1,3 +1,22 @@
+Final stuff
+- ability to add multiple of same show/movie (eg. might want to binge watch a show)
+
+- auto-fill number of episodes
+
+- what’s the time delta I need to fill
+
+- The close button for the travel time calculator should be in the right corner
+
+- Instructions to enter you commute time in the top field
+
+- button to show other suggestions
+
+- make spacing above tiles accomodate long titles
+
+
+
+Old stuff
+
 - print 10 items to screen
 	- thumbnail
 	- title

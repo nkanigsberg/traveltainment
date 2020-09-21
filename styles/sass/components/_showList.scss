@@ -35,6 +35,11 @@
       }
     }
 
+    .mediaResults__moreInfo {
+      align-items: flex-end;
+      padding-bottom: 12px;
+    }
+
     &__info {
       & > *:not(:last-child) { margin-bottom: .5rem;}
       font-size: 1.4rem;
@@ -43,28 +48,30 @@
 
     
   }
+  
   &__runtime {
     font-family: $secondaryFont;
   }
 }
 
 // for devices that use touch input
-@media(hover: hover) {
-  .showList {
-    .imageContainer {
-      // position: relative;
+// TODO
+// @media(hover: hover) {
+//   .showList {
+//     .imageContainer {
+//       // position: relative;
 
-      button {
-        // position: absolute;
-        background-color: green;
-        top: 0;
-        right: 0;
-        left: initial;
-        bottom: initial;
-        border-radius: none;
-        font-size: 2rem;
-        border-bottom-left-radius: 5px;
-      }
-    }
-  }
-}
+//       button {
+//         // position: absolute;
+//         background-color: green;
+//         top: 0;
+//         right: 0;
+//         left: initial;
+//         bottom: initial;
+//         border-radius: none;
+//         font-size: 2rem;
+//         border-bottom-left-radius: 5px;
+//       }
+//     }
+//   }
+// }

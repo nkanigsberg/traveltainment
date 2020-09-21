@@ -13,6 +13,8 @@ Final stuff
 
 - make spacing above tiles accomodate long titles
 
+** Should suggest shows based on REMAINING time **
+
 
 
 Old stuff

@@ -1,29 +1,51 @@
+// variables
+	$logoWidth: 25%;
+	$logoMinWidth: 10rem;
+
+	$searchFormWidth: 40%;
+	$searchFormMinWidth: 40rem;
+
+	$mapButtonWidth: 20%;
+	$mapButtonMinWidth: 20rem;
+
 header { 
 	padding: 2rem 0 5rem;
 	background-color: $secondaryBackground;
 	color: $white;
 }
 
+.topBar {
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+	flex-wrap: wrap;
+
+}
+
 .logo {
-	width: 35%;
+	width: $logoWidth;
+	min-width: $logoMinWidth;
 	// border: 1px solid red;
 	// padding-right: 1rem;
 
 	display: flex;
-	flex-direction: column;
-	align-items: center;
+	// flex-direction: column;
+	justify-content: center;
 
 	position: relative;
+
+	padding: 5rem 0;
 }
 
 .tagline {
 	position: absolute;
-	top: 7rem;
+	top: 12rem;
 	height: 3.8rem;
-	// width: 50%;
+	// width: 80%;
 
 	display: flex;
-	align-items: center;
+	justify-content: center;
+	// align-items: center;
 }
 
 h1 {
@@ -40,27 +62,36 @@ h1 {
 
 	height: 100%;
 
+	overflow: hidden;
+
 	span {
 		// color: #1F5673;
 		color: #032541;
 	}
+
+	a {
+		padding: 1rem 2rem;
+		margin: -1rem -2rem;
+	}
 }
 
 
-.topBar {
-	display: flex;
-	justify-content: space-evenly;
-	align-items: center;
-}
 
 .form__search {
-	// width: calc(30rem + 20%);
+	width: $searchFormWidth;
+	width: $searchFormMinWidth;
 
-	padding-left: 1rem;
+	// padding-left: 1rem;
 	
 	// prevent resizing when toggling between movie and tv
 	#genres { min-width: 160px; }
 
+}
+
+.commuteTime {
+	width: $mapButtonWidth;
+	min-width: $mapButtonMinWidth;
+	text-align: right;
 }
 
 .search__time {

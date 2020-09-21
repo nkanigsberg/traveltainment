@@ -6,6 +6,8 @@
 
 body {
 	background-color: $primaryBackground;
+
+	overflow-x: hidden;
 }
 
 .hidden {
@@ -15,7 +17,13 @@ body {
 }
 
 .attention {
-	color: $accent1;
+	color: $accent1 !important;
+}
+
+
+.pageContainer {
+	position: relative;
+	min-height: 100vh;
 }
 
 // Remove arrows/spinners from number inputs

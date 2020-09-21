@@ -1,0 +1,27 @@
+footer {
+	width: 100vw;
+
+	position: absolute;
+	bottom: 0;
+
+	color: $white;
+	background-color: $footerBackground;
+}
+
+.copyright-container {
+	display: flex;
+	// flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+
+	height: 8rem;
+
+	a {
+		text-decoration: underline;
+
+		&:hover,
+		&:focus {
+			opacity: 60%;
+		}
+	}
+}

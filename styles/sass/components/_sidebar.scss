@@ -1,6 +1,8 @@
 .sidebar {
-	border: 2px solid #d40242;
+	border: 2px solid $accent1;
 	border-radius: 5px;
+
+	background-color: $listBackground;
 	// padding: 1rem 1rem;
 	// width: 25%;
 
@@ -10,11 +12,11 @@
 	height: 100%;
 
 	&__content {
-		padding: 1rem;
+		padding: 1rem 1rem 0;
 	}
 
 	&__title {
-		background-color: #d40242;
+		background-color: $accent1;
 		padding: 0.6rem 0;
 		color: $white;
 		text-align: center;
@@ -23,11 +25,13 @@
 	&__time {
 		// padding: 0 1rem;
 		// margin-top: 0.8rem;
-		span { color: #d40242;}
+		span { color: $black;}
 	}
 
 	&__text {
-		// margin: 1rem 0;
+		padding-bottom: 1rem;
+
+		text-align: center;
 	}
 		
 }

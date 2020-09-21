@@ -78,7 +78,7 @@ form {
 		.instruction {
 			position: absolute;
 			bottom: -2.7rem;
-			left: 0;
+			left: 5%;
 
 			width: 20rem;
 		}
@@ -99,7 +99,7 @@ form {
 		.search__options {
 			display: flex;
 			align-items: center;
-			justify-content: flex-start;
+			justify-content: center;
 		}
 
 		.search__options {
@@ -112,6 +112,7 @@ form {
 		.search__time {
 			.button__primary {
 				margin-left: 1rem;
+				width: 18rem;
 			}
 		}
 	}
@@ -180,4 +181,6 @@ select {
 
 	border: none;
 	border-radius: 1rem;
+
+	width: 18rem;
 }

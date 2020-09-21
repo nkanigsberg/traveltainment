@@ -41,11 +41,6 @@ app.getMediaData = function(path, extraData = {}) {
 		page: 1,
 		...extraData
 	} 
-
-	// console.log({extraData});
-	// console.table({path, data});
-
-	// console.log(app.movieApi + path);
 	
 	return $.ajax({
 		url: app.movieApi + path,
@@ -121,10 +116,11 @@ app.displayMovieData = (results) => {
 		const mediaRuntime = runtime ? runtime: episode_run_time[0];
 		const mediaType = runtime ? "movie" : "tv";
 
-		const hours = Math.floor(mediaRuntime / 60);
-		const minutes = mediaRuntime % 60;
+		// const hours = Math.floor(mediaRuntime / 60);
+		// const minutes = mediaRuntime % 60;
 
-		const timeString = hours ? `${hours}h${minutes}m` : `${minutes}m`;
+		const timeString = app.getTimeString(mediaRuntime);
+
 		console.log(timeString);
 
 		
@@ -198,56 +194,11 @@ app.setButtonText = () => {
  * Add event listeners
  */
 app.setEventListeners = () => {
+
 	// get media results based off user input
   $('.form__search').on('submit', function(e) {
 		e.preventDefault();
-		const $hourInput = $('#travelHours');
-		const $minuteInput = $('#travelMinutes');
-
-		const $mediaType = $('input[name="media"]:checked');
-		const $directions = $('.directions');
-
-		const genre = $('#genres').val();
-
-		console.log('form submitted');
-		
-		const hours = parseInt($hourInput.val()) || 0;
-		const minutes = parseInt($minuteInput.val()) || 0;
-
-		const time = (hours * 60) + minutes;
-		app.userTravelTime = time;
-		if (app.mediaList.length) {
-			// const remainingTime = app.userTravelTime - app.mediaListRuntime;
-			// const remainingTimeString = app.getTimeString(remainingTime);
-			// $('.totalTime--user').text(remainingTimeString);
-			app.displayMediaTime();
-		}
-
-		const type = $mediaType.val();
-
-		// &with_runtime.gte=5&with_runtime.lte=10
-	
-		const searchFilter = {};
-		if (time) { 
-			searchFilter["with_runtime.lte"] = time; 
-			console.table(searchFilter);
-		}
-
-		if (genre) {
-			searchFilter["with_genres"] = genre;
-		}
-		
-		console.log(searchFilter);
-		// console.log({time, type});
-		app.getMovieData(type, searchFilter);
-
-		$directions.addClass('hidden');
-
-		// if time entered is greater than time in list, remove attention class
-		if (time > app.mediaListRuntime) {
-			$('.instruction').removeClass('attention');
-		}
-
+		app.getMediaResults();
 	});
 	
 
@@ -288,6 +239,9 @@ app.setEventListeners = () => {
 		$directions.append(`
 			<button class="button__map">Close <i class="fas fa-times" aria-label="Close Map"></i></button>
 		`);
+
+		// focus on origin input
+		$('#origin').focus();
 	});
 
 	// close map on button click
@@ -301,50 +255,11 @@ app.setEventListeners = () => {
 	$('#tv').on('change', app.populateMediaGenres);
 
 	// add media selection to list
-	$('.mediaResults').on('click', 'button', function() {
-		// const title = $(this).parent().parent()
-		const $mediaContainer = $(this).parent().parent();
-		const id = $mediaContainer.data('id');
-		const type = $mediaContainer.data('type');
-		const title = $mediaContainer.find('.mediaResults__title').text();
-		const imgSrc = $mediaContainer.find('img').attr('src');
-		const runtime = $mediaContainer.data('runtime');
-		const timeString = $mediaContainer.find('.mediaResults__runtime').text();
-
+	$('.mediaResults').on('click', 'button', app.addMediaListItem);
 		
-		// check if the media has already been added to the list
-		// if (!app.mediaList.find(media => media.id === id)) {
-			// if not found add the media to the mediaList
-				const selectedMedia = {
-					id,
-					type,
-					title,
-					imgSrc,
-					runtime,
-					timeString
-				}
-
-			app.mediaList.push(selectedMedia);
-			app.mediaListRuntime += runtime;
-			app.displayMediaList();
-		// } // end conditional to check if media was already selecte
-	})
-
 	// remove item from list when button is clicked
-	$('.sidebar__content').on('click', '.button__list--remove', function() {
-		const $mediaContainer = $(this).parent().parent();
-		const id = $mediaContainer.data('id');
-		const runtime = $mediaContainer.data('runtime');
-
-		app.mediaList = app.mediaList.filter(media => media.id !== id);
-		// app.mediaListRuntime -= runtime;
-		app.mediaListRuntime = app.mediaList.reduce((accum, {runtime}) => {
-			return accum += runtime
-		}, 0);
-
-		app.displayMediaList();
-	});
-
+	$('.sidebar__content').on('click', '.button__list--remove', app.removeMediaListItem);
+	$('.mediaResults').on('click', '.button__list--added', app.removeMediaListItem);
 
 	// change search button text on media type change
 	$('input[name="media"]').on('change', app.setButtonText);
@@ -352,25 +267,26 @@ app.setEventListeners = () => {
 
 
 app.displayMediaList = () => {
+	const $sidebarText = $('.sidebar__text');
 	const $sidebarContent = $('.sidebar__content');
 
 	let mediaListText;
 
 	if (app.mediaList.length && app.userTravelTime) {
 		mediaListText = `
-		<p class="sidebar__time">Total List Time: <span class="totalTime"></span></p>
-		<p class="sidebar__time">Time Remaining: <span class="totalTime--user">${app.userTravelTime}</span></p>` 
+		<p class="sidebar__time">Total Time: <span class="totalTime"></span></p>
+		`
 	}
 	else if (app.mediaList.length) {
-		mediaListText = `<p class="sidebar__time">Total List Time: <span class="totalTime"></span></p>`
+		mediaListText = `<p class="sidebar__time">Total Time: <span class="totalTime"></span></p>`
 	}
 	else {
 		mediaListText = `<p class="sidebar__text">Click the Add To List button!</p>`;
 	}
 
-	$sidebarContent
-		.empty()
-		.append(mediaListText);
+	$sidebarText.empty().append(mediaListText);
+	$sidebarContent.empty();
+		
 
 	app.mediaList.forEach(({id, type, title, imgSrc, runtime, timeString}) => {
 		
@@ -391,12 +307,99 @@ app.displayMediaList = () => {
 		`);
 	});
 
-	// const listTimeString = app.getTimeString(app.mediaListRuntime);
-	// const remainingTimeString = app.getTimeString(app.userTravelTime - app.mediaListRuntime);
-	// $('.totalTime').text(listTimeString);
-	// $('.totalTime--user').text(remainingTimeString);
-
 	app.displayMediaTime();
+}
+
+app.getMediaResults = () => {
+	const $hourInput = $('#travelHours');
+	const $minuteInput = $('#travelMinutes');
+
+	const $mediaType = $('input[name="media"]:checked');
+	const $directions = $('.directions');
+
+	const genre = $('#genres').val();
+
+	console.log('form submitted');
+	
+	const hours = parseInt($hourInput.val()) || 0;
+	const minutes = parseInt($minuteInput.val()) || 0;
+
+	const time = (hours * 60) + minutes;
+	app.userTravelTime = time;
+	if (app.mediaList.length) {
+		app.displayMediaTime();
+	}
+
+	const type = $mediaType.val();
+
+	const searchFilter = {};
+	if (time) { 
+		searchFilter["with_runtime.lte"] = time; 
+		console.table(searchFilter);
+	}
+
+	if (genre) {
+		searchFilter["with_genres"] = genre;
+	}
+	
+	console.log(searchFilter);
+	// console.log({time, type});
+	app.getMovieData(type, searchFilter);
+
+	$directions.addClass('hidden');
+
+	// if time is entered, remove attention from instruction
+	if (time) {
+		$('.instruction').removeClass('attention');
+	}	
+}
+
+app.addMediaListItem = function() {
+	const $mediaContainer = $(this).parent().parent();
+	const id = $mediaContainer.data('id');
+	const type = $mediaContainer.data('type');
+	const title = $mediaContainer.find('.mediaResults__title').text();
+	const imgSrc = $mediaContainer.find('img').attr('src');
+	const runtime = $mediaContainer.data('runtime');
+	const timeString = $mediaContainer.find('.mediaResults__runtime').text();
+
+	
+	// check if the media has already been added to the list
+	if (!app.mediaList.find(media => media.id === id)) {
+		// if not found add the media to the mediaList
+			const selectedMedia = {
+				id,
+				type,
+				title,
+				imgSrc,
+				runtime,
+				timeString
+			}
+
+		app.mediaList.push(selectedMedia);
+		app.mediaListRuntime += runtime;
+		app.displayMediaList();
+		$(`[data-id="${id}"].mediaResults__container button`)
+			.text('Remove')
+			.toggleClass('button__list--add button__list--added');
+	} // end conditional to check if media was already selecte
+}
+
+app.removeMediaListItem = function() {
+	const $mediaContainer = $(this).parent().parent();
+	const id = $mediaContainer.data('id');
+	const runtime = $mediaContainer.data('runtime');
+
+	app.mediaList = app.mediaList.filter(media => media.id !== id);
+	// app.mediaListRuntime -= runtime;
+	app.mediaListRuntime = app.mediaList.reduce((accum, {runtime}) => {
+		return accum += runtime
+	}, 0);
+
+	app.displayMediaList();
+	$(`[data-id="${id}"].mediaResults__container button`)
+			.text('Add to list')
+			.toggleClass('button__list--add button__list--added');
 }
 
 app.displayMediaTime = () => {
@@ -410,13 +413,22 @@ app.displayMediaTime = () => {
 		? app.getTimeString(timeRemaining)
 		: "Time Exceeded";
 
-	$('.totalTime').text(`${listTimeString} / ${travelTime}`);
-	$('.totalTime--user').text(timeRemainingString);
+	$('.totalTime').html(`
+		<p class="sidebar__time">
+			<span class="timeRemaining">${listTimeString}</span> / ${travelTime}
+		</p>
+	`);
+	// $('.totalTime--user').text(timeRemainingString);
 
 	// if user has not entered time and there are shows in list, add attention to instruction
 	if (!app.userTravelTime && timeRemaining < 0) {
 		$('.instruction').addClass('attention');
 	};
+
+	if (timeRemaining < 0) {
+		$('.sidebar__time').find('.timeRemaining').addClass('attention');
+	}
+
 }
 
 // https://www.google.com/maps/embed/v1/directions?origin=place_id:ChIJX4Ud3M4rK4gRTORiU8rXyDM&destination=place_id:ChIJJbMiZUwqK4gRb_p9AN3xc2I&key=AIzaSyCPyZS2Eotm8pA650bXUbFEvwil8WvTpbE
@@ -470,9 +482,12 @@ app.populateMediaGenres = () => {
 app.getTimeString = (time) => {
 	const hours = Math.floor(time / 60);
 	const minutes = time % 60;
+	const minutesPadded = minutes.toString().padStart(2, '0');
+	console.log('minutesPadded', minutesPadded);
 
-	return hours ? `${hours}h${minutes}m` : `${minutes}m`;
+	return hours ? `${hours}h ${minutesPadded}m` : `${minutesPadded}m`;
 }
+
 
 /** Initialize App */
 app.init = function() {

@@ -50,6 +50,7 @@
 		z-index: 200;
 		position: absolute;
 		top: 1.5rem;
+		right: 1.5rem;
 		// justify-self: flex-end;
 		// align-self: flex-end;
 
@@ -67,6 +68,11 @@
 		&--add {
 			font-size: 1.4rem;
 			background-color: #032541;
+		}
+
+		&--added {
+			font-size: 1.4rem;
+			background-color: darken(#D40242, 10%);
 		}
 
 		&--remove {

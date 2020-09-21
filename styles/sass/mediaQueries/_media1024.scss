@@ -1,0 +1,24 @@
+@media (max-width: 1024px) {
+
+		// header
+	.logo {
+		width: 100%;
+		padding: 2rem 0 6rem;
+	}
+
+	.tagline {
+		top: 9rem;
+	}
+
+	.directions {
+		justify-content: space-between;
+
+		right: calc(-3rem - 3vw);
+		// width: 85vw;
+
+		iframe {
+			width: 50vw;
+		}
+	}
+
+}

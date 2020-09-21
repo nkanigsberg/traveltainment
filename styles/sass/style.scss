@@ -8,6 +8,7 @@
 
 @import './layout/header';
 @import './layout/main';
+@import './layout/footer';
 
 @import './components/form';
 @import './components/button';
@@ -15,3 +16,7 @@
 @import './components/mediaResult';
 @import './components/sidebar';
 @import './components/showList';
+
+@import './mediaQueries/media1024';
+@import './mediaQueries/media768';
+@import './mediaQueries/media480';

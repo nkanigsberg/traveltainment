@@ -1,22 +1,21 @@
 @media (max-width: 480px) {
-	
 	// header
 
 	.search__options {
 		flex-wrap: wrap;
 
-			div {
-				display: flex;
-				justify-content: center;
-			}
+		div {
+			display: flex;
+			justify-content: center;
+		}
 
-			.genre {
-				width: 100%;
-			}
+		.genre {
+			width: 100%;
+		}
 
-			.floatLabel-container {
-				width: 30%;
-			}
+		.floatLabel-container {
+			width: 30%;
+		}
 	}
 	
 	.search__time {
@@ -46,7 +45,6 @@
 		align-items: center;
 	}
 
-
 	.button__commute {
 		width: 30%;
 
@@ -57,15 +55,11 @@
 		}
 	}
 
-
   .button__list--add {
     font-size: 1.2rem;
   }  
   .mediaResults__content {
     grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
     gap: 1rem;
-
   }
-
-
 }

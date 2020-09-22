@@ -3,11 +3,6 @@
 	border-radius: 5px;
 
 	background-color: $listBackground;
-	// padding: 1rem 1rem;
-	// width: 25%;
-
-	// margin: 0 0 0 auto;
-	// float: right;
 
 	height: 100%;
 
@@ -23,9 +18,10 @@
 	}
 
 	&__time {
-		// padding: 0 1rem;
-		// margin-top: 0.8rem;
-		span { color: $black;}
+
+		span {
+			color: $black;
+		}
 	}
 
 	&__text {
@@ -33,5 +29,4 @@
 
 		text-align: center;
 	}
-		
 }

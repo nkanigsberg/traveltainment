@@ -1,47 +1,46 @@
+/** @namespace app */
 const app = {}
 
+// API endpoints
 app.movieApi = "https://api.themoviedb.org/3/";
-app.movieApiKey = "993e3f1a5ab9378c732a3cf32f8a2988";
 app.movieImageUrl = "https://image.tmdb.org/t/p/w500";
 app.infoUrl = "https://www.themoviedb.org/";
 
+// API key
+app.movieApiKey = "993e3f1a5ab9378c732a3cf32f8a2988";
+
+/** @type {object} genre lists taken from API */
 app.genres = {
 	movie: [],
 	tv: []
 }
 
+/** @type {array} list of media to display */
 app.mediaList = [];
+
+/** @type {number} total runtime of selected media */
 app.mediaListRuntime = 0;
+
+/** @type {number} travel time input by user */
 app.userTravelTime = 0;
-
-
-/*
-Movie Calls
-Get Genre List - /genre/movie/list
-Get Movies List - /discover/movie
-Get Specific Movie - /movie/{movie_id}
-
-TV Calls
-Get Genre List - /genre/tv/list
-Get TV List - /discover/tv
-Get Specific TV Show - /tv/{tv_id}
-Search for a TV Show - /search/tv/?query={search string}
-
-*/
 
 
 /**
  * Template moviedb api call
+ * @param {string} path - path to append to endpoint
+ * @param {object} extraData - additional parameters to send with API request
+ * @returns {object} jqXHR Object from API response
  */
-
 app.getMediaData = function(path, extraData = {}) {
+	// default data parameters for the ajax call
+	// allow for additional parameters through extraData parameter
 	const data = {
 		api_key: app.movieApiKey,
 		language: "en-US",
 		page: 1,
 		...extraData
 	} 
-	
+	// append value of 'path' to the url and return the promise of the ajax call
 	return $.ajax({
 		url: app.movieApi + path,
 		method: 'GET',
@@ -52,11 +51,11 @@ app.getMediaData = function(path, extraData = {}) {
 
 /**
  * Make request to moviedb api
+ * @param {string} type - the type of media to request
+ * @param {object} searchFilter - additional parameters to send with API request
  */
 app.getMovieData = function(type, searchFilter = {}) {
 	const path = 'discover/' + type;
-
-	console.table('getmoviedata call', searchFilter);
 
 	// get media results from /discover/[movie | tv]
 	app.getMediaData(path, searchFilter)
@@ -76,7 +75,6 @@ app.getMovieData = function(type, searchFilter = {}) {
 						.map(media => media[0])
 						// return array with results that have a runtime greater than 0
 						.filter(({runtime, episode_run_time}) => {
-							console.log(runtime, episode_run_time);
 							const mediaRuntime = type === "movie" ? runtime : episode_run_time[0]; 
 							// if user inputs travel time, return results that are less than or equal to the submitted trabel time
 							if (searchFilter["with_runtime.lte"]) {
@@ -84,7 +82,6 @@ app.getMovieData = function(type, searchFilter = {}) {
 								return travelTime >= mediaRuntime  && mediaRuntime > 0
 							}
 
-							console.log('mediaruntime', mediaRuntime)
 							return mediaRuntime > 0
 						});
 					
@@ -94,89 +91,49 @@ app.getMovieData = function(type, searchFilter = {}) {
 }; // end of app.getMovieData
 
 
-// https://api.themoviedb.org/3/movie/550/images?api_key=993e3f1a5ab9378c732a3cf32f8a2988&language=en-US&include_image_language=en
-
-
-
-
 /**
  * Display results of moviedb api request
- * @param {object} param0 - 
+ * @param {object} results - the results of the API response
  */
 app.displayMovieData = (results) => {
+	// get the div containing the media results
 	const $mediaResults = $('.mediaResults__content');
+	// empty the container
 	$mediaResults.empty();
 
-	console.log(results);
-
-	// const newArray = results.slice(0, 10);
-
+	// loop through the results provided by the api and append them to the media results container
 	results.forEach(({id, title, name, backdrop_path, poster_path, runtime, episode_run_time}) => {
-		const mediaTitle = title ? title : name;
-		const mediaRuntime = runtime ? runtime: episode_run_time[0];
+		// store media type in variable dependant on runtime property... movie (title) or tv show (name)
 		const mediaType = runtime ? "movie" : "tv";
-
-		// const hours = Math.floor(mediaRuntime / 60);
-		// const minutes = mediaRuntime % 60;
-
+		// store title in variable dependant on media type ... movie (title) or tv show (name)
+		const mediaTitle = title ? title : name;
+		// store runtime in variable dependant on media type ... movie (runtime) or tv show (episode_run_time)
+		const mediaRuntime = runtime ? runtime: episode_run_time[0];
+		// store timeString value of the media runtime
 		const timeString = app.getTimeString(mediaRuntime);
-
-		console.log(timeString);
-
-		
-		console.log(mediaTitle);
-		console.log(backdrop_path);
-		console.log(poster_path);
-
+		// store image source...backdrop by default, if null grab the poser
 		const imageSrc = backdrop_path ? app.movieImageUrl + backdrop_path : app.movieImageUrl + poster_path;
 
+		// append media results html to the container
 		$mediaResults.append(`
 			<div class="mediaResults__container" data-id="${id}" data-type="${mediaType}" data-runtime="${mediaRuntime}">
 				<h3 class="mediaResults__title">${mediaTitle}</h3>
 				<div class="imageContainer">
 					<img src=${imageSrc} alt="${mediaTitle}">
 					<div class="mediaResults__moreInfo">
-						<a href="${app.infoUrl}${mediaType}/${id}" target="_blank">More Info</a>
+						<a href="${app.infoUrl}${mediaType}/${id}" target="_blank">More Info<i class="fas fa-external-link-alt"></i></a>
 					</div>
 				</div>
 				<div class="mediaResults__info">
 					<p class="mediaResults__runtime">${timeString}</p>
-					<button class="mediaResults__button button__list button__list--add button__primary"">Add to list</button>
+					<button class="button__list button__list--add button__primary">Add to list</button>
 				</div>
 				
 			<div>
 		`);
 
 	});
-
-
-	console.log(newArray);
 };
-
-// &with_runtime.gte=5&with_runtime.lte=10
-
-
-/*
-0:
-adult: false
-backdrop_path: "/m7QpUAeI2xTCJyAVl9J9z5dBTSb.jpg"
-genre_ids: (3) [28, 27, 878]
-id: 722603
-original_language: "en"
-original_title: "Battlefield 2025"
-overview: "Weekend campers, an escaped convict, young lovers and a police officer experience a night of terror when a hostile visitor from another world descends on a small Arizona town."
-popularity: 353.143
-poster_path: "/w6e0XZreiyW4mGlLRHEG8ipff7b.jpg"
-release_date: "2020-07-07"
-title: "Battlefield 2025"
-video: false
-vote_average: 5
-vote_count: 16
-
-
-
-app.movieImageUrl = "https://image.tmdb.org/t/p/w500/w6e0XZreiyW4mGlLRHEG8ipff7b.jpg" + ;
-*/
 
 /**
  * Set the main search button text
@@ -184,11 +141,9 @@ app.movieImageUrl = "https://image.tmdb.org/t/p/w500/w6e0XZreiyW4mGlLRHEG8ipff7b
 app.setButtonText = () => {
 	const $submitButton = $('.search__time button[type="submit"]');
 	const type = $('input[name="media"]:checked').val();
-
-	console.log($submitButton);
+	// set to 'find movies' or 'find tv'
 	$submitButton.text(`Find ${type}${type === 'movie' ? 's' : ''}`);
 };
-
 
 /**
  * Add event listeners
@@ -200,15 +155,10 @@ app.setEventListeners = () => {
 		e.preventDefault();
 		app.getMediaResults();
 	});
-	
-
-	// $('iframe').attr('src', `https://www.google.com/maps/embed/v1/directions?origin=${origin}&destination=${destination}&key=AIzaSyCPyZS2Eotm8pA650bXUbFEvwil8WvTpbE`);
-
 
 	// display map on directions submit
 	$('.form__directions').on('submit', function(e) {
 		e.preventDefault();
-		const $directions = $('.directions');
 		const $map = $('.map');
 		const origin = $('#origin').val();
 		const destination = $('#destination').val();
@@ -256,7 +206,7 @@ app.setEventListeners = () => {
 
 	// add media selection to list
 	$('.mediaResults').on('click', 'button', app.addMediaListItem);
-		
+	
 	// remove item from list when button is clicked
 	$('.sidebar__content').on('click', '.button__list--remove', app.removeMediaListItem);
 	$('.mediaResults').on('click', '.button__list--added', app.removeMediaListItem);
@@ -266,50 +216,55 @@ app.setEventListeners = () => {
 };
 
 
+/**
+ * Display the media list in the sidebar
+ */
 app.displayMediaList = () => {
 	const $sidebarText = $('.sidebar__text');
 	const $sidebarContent = $('.sidebar__content');
 
 	let mediaListText;
 
-	if (app.mediaList.length && app.userTravelTime) {
-		mediaListText = `
-		<p class="sidebar__time">Total Time: <span class="totalTime"></span></p>
-		`
+	// if there is media in the list, display the total runtime
+	if (app.mediaList.length) {
+		mediaListText = `<p class="sidebar__time">Total Time: <span class="totalTime"></span></p>`;
 	}
-	else if (app.mediaList.length) {
-		mediaListText = `<p class="sidebar__time">Total Time: <span class="totalTime"></span></p>`
-	}
+	// else display instructions for the user to add to the list
 	else {
 		mediaListText = `<p class="sidebar__text">Click the Add To List button!</p>`;
 	}
 
+	// empty sidebar text content and apply dynamic text
 	$sidebarText.empty().append(mediaListText);
 	$sidebarContent.empty();
-		
 
+	// loop through items in the media list and append to the list section
 	app.mediaList.forEach(({id, type, title, imgSrc, runtime, timeString}) => {
-		
+		// sidebar list content
 		$sidebarContent.append(`
 		<div class="showList__media" data-id="${id}" data-runtime="${runtime}">
-		<div class="imageContainer">
-		<img src="${imgSrc}" alt="${title}">
-		 <div class="mediaResults__moreInfo">
-		 	<a href="${app.infoUrl}${type}/${id}" target="_blank">More Info</a>
-		 	</div>
-						<button data-title="${title}" data-runtime="${runtime}" class="button__list button__list--remove button__primary"><i class="fas fa-times"></i></button>
-				</div>
-				<div class="showList__info">
-					<h3 class="showList__title">${title}</h3>
-					<p class="showList__runtime">${timeString}</p>
-				</div>
+			<div class="imageContainer">
+				<img src="${imgSrc}" alt="${title}">
+				<div class="mediaResults__moreInfo">
+		 			<a href="${app.infoUrl}${type}/${id}" target="_blank" aria-label="Show Info"><span> <i class="fas fa-external-link-alt"></i></span></a>
+		 		</div>
+				<button data-title="${title}" data-runtime="${runtime}" class="button__list button__list--remove button__primary"><i class="fas fa-times"></i></button>
 			</div>
+			<div class="showList__info">
+				<h3 class="showList__title">${title}</h3>
+				<p class="showList__runtime">${timeString}</p>
+			</div>
+		</div>
 		`);
 	});
-
+	
+	// update the list text with the correct media runtime calculation
 	app.displayMediaTime();
 }
 
+/**
+ * Gather user input and make api call to get media results
+ */
 app.getMediaResults = () => {
 	const $hourInput = $('#travelHours');
 	const $minuteInput = $('#travelMinutes');
@@ -318,34 +273,37 @@ app.getMediaResults = () => {
 	const $directions = $('.directions');
 
 	const genre = $('#genres').val();
-
-	console.log('form submitted');
 	
+	// set value to 0 if hours or minutes does not have a value
 	const hours = parseInt($hourInput.val()) || 0;
 	const minutes = parseInt($minuteInput.val()) || 0;
 
+	// calculate time in total minutes
 	const time = (hours * 60) + minutes;
 	app.userTravelTime = time;
+
+	// display media in list if 
 	if (app.mediaList.length) {
 		app.displayMediaTime();
 	}
 
+	// store type in variable (movie or tv)
 	const type = $mediaType.val();
 
+	// search filters for the media query
 	const searchFilter = {};
 	if (time) { 
 		searchFilter["with_runtime.lte"] = time; 
-		console.table(searchFilter);
 	}
 
 	if (genre) {
 		searchFilter["with_genres"] = genre;
 	}
 	
-	console.log(searchFilter);
-	// console.log({time, type});
+	// call api method with the media type and search filters
 	app.getMovieData(type, searchFilter);
 
+	// hide the google maps directions
 	$directions.addClass('hidden');
 
 	// if time is entered, remove attention from instruction
@@ -354,7 +312,11 @@ app.getMediaResults = () => {
 	}	
 }
 
+/**
+ * Add media item to show list
+ */
 app.addMediaListItem = function() {
+	// store values of interest to be stored in an object later
 	const $mediaContainer = $(this).parent().parent();
 	const id = $mediaContainer.data('id');
 	const type = $mediaContainer.data('type');
@@ -366,95 +328,104 @@ app.addMediaListItem = function() {
 	
 	// check if the media has already been added to the list
 	if (!app.mediaList.find(media => media.id === id)) {
-		// if not found add the media to the mediaList
-			const selectedMedia = {
-				id,
-				type,
-				title,
-				imgSrc,
-				runtime,
-				timeString
-			}
-
+		// store media values of interest into object
+		const selectedMedia = {
+			id,
+			type,
+			title,
+			imgSrc,
+			runtime,
+			timeString
+		}
+			
+		// push the selected media object into the mediaList array
 		app.mediaList.push(selectedMedia);
+		// add the runtime to the media list total runtime
 		app.mediaListRuntime += runtime;
+		// display the updated media list
 		app.displayMediaList();
+		// update the button of the media results container to display Remove
 		$(`[data-id="${id}"].mediaResults__container button`)
 			.text('Remove')
+			// add class of '--added' to visibly indicate the change of state of the button
 			.toggleClass('button__list--add button__list--added');
-	} // end conditional to check if media was already selecte
+	}
 }
 
+/**
+ * Remove media item from show list
+ */
 app.removeMediaListItem = function() {
+	// store id and runtime of the item to be removed
 	const $mediaContainer = $(this).parent().parent();
 	const id = $mediaContainer.data('id');
-	const runtime = $mediaContainer.data('runtime');
 
+	// update the media list by filtering out the removed item's id
 	app.mediaList = app.mediaList.filter(media => media.id !== id);
-	// app.mediaListRuntime -= runtime;
+
+	// go through the mediaList and store the sum of the runtimes
 	app.mediaListRuntime = app.mediaList.reduce((accum, {runtime}) => {
 		return accum += runtime
 	}, 0);
-
+	
+	// display the updated media list
 	app.displayMediaList();
+	// update the button in the media results container text back to 'add to list'
 	$(`[data-id="${id}"].mediaResults__container button`)
 			.text('Add to list')
+			// toggle class to visibly indicate change of state of button
 			.toggleClass('button__list--add button__list--added');
 }
 
+
+/**
+ * Display time available and remaining in list in 1h 00m format
+ */
 app.displayMediaTime = () => {
+	// store 'time string' value of the media list runtime
 	const listTimeString = app.getTimeString(app.mediaListRuntime);
 
 	const timeRemaining = app.userTravelTime - app.mediaListRuntime;
 
 	const travelTime = app.getTimeString(app.userTravelTime);
 
-	const timeRemainingString = timeRemaining >= 0 
-		? app.getTimeString(timeRemaining)
-		: "Time Exceeded";
-
 	$('.totalTime').html(`
 		<p class="sidebar__time">
 			<span class="timeRemaining">${listTimeString}</span> / ${travelTime}
 		</p>
 	`);
-	// $('.totalTime--user').text(timeRemainingString);
 
 	// if user has not entered time and there are shows in list, add attention to instruction
 	if (!app.userTravelTime && timeRemaining < 0) {
 		$('.instruction').addClass('attention');
 	};
 
+	// if time remaining is less than 0 the bring attention to the time remaining
 	if (timeRemaining < 0) {
 		$('.sidebar__time').find('.timeRemaining').addClass('attention');
 	}
-
 }
-
-// https://www.google.com/maps/embed/v1/directions?origin=place_id:ChIJX4Ud3M4rK4gRTORiU8rXyDM&destination=place_id:ChIJJbMiZUwqK4gRb_p9AN3xc2I&key=AIzaSyCPyZS2Eotm8pA650bXUbFEvwil8WvTpbE
 
 /**
  * Get genre list from API
  */
 app.getMediaGenres = async function() {
-	// const $mediaType = $('input[name="media"]:checked').val();
+  // Get movie genres and add to genre list
+  await app.getMediaData(`genre/movie/list`).then(({ genres }) => {
+    genres.forEach((genre) => {
+      app.genres.movie.push(genre);
+    });
+  });
 
-// https://api.themoviedb.org/3/genre/movie/list?api_key=993e3f1a5ab9378c732a3cf32f8a2988&language=en-US
-	await app.getMediaData(`genre/movie/list`)
-		.then(({genres}) => {
-			genres.forEach((genre) => {
-				app.genres.movie.push(genre);
-			})
-		})
+  // Get TV genres and add to genre list
+  await app.getMediaData(`genre/tv/list`).then(({ genres }) => {
+    genres.forEach((genre) => {
+      app.genres.tv.push(genre);
+    });
+  });
 
-	await app.getMediaData(`genre/tv/list`)
-	.then(({genres}) => {
-		genres.forEach((genre) => {
-			app.genres.tv.push(genre);
-		})
-	})
-		
-	app.populateMediaGenres();
+	// populate dropdown with genres from API
+  app.populateMediaGenres();
 }
 
 /**
@@ -462,41 +433,46 @@ app.getMediaGenres = async function() {
  */
 app.populateMediaGenres = () => {
 	const mediaType = $('input[name="media"]:checked').val();
-
-	
 	const $genres = $('#genres');
+	
+	// replace content of genre dropdown with 'select' and 'any' options
 	$genres.empty().append(`
 		<option value="" selected disabled hidden>Select Genre</option>
 		<option value="" >Any Genre</option>
 	`);
-	app.genres[mediaType].forEach(({id, name}) => {
-		// console.log(id, name);
-		$genres.append(`<option value="${id}">${name}</option>`);
-	})
 	
-}
+	// append selected media genres to dropdown
+	app.genres[mediaType].forEach(({id, name}) => {
+		$genres.append(`<option value="${id}">${name}</option>`);
+	});
+};
 
 /**
- * @param {integer} time
+ * Convert time in minutes to formatted string
+ * @param {number} time - the time in minutes to convert
+ * @returns {string} time string in format 0h00m
  */
 app.getTimeString = (time) => {
 	const hours = Math.floor(time / 60);
 	const minutes = time % 60;
 	const minutesPadded = minutes.toString().padStart(2, '0');
-	console.log('minutesPadded', minutesPadded);
 
 	return hours ? `${hours}h ${minutesPadded}m` : `${minutesPadded}m`;
 }
 
 
-/** Initialize App */
+/**
+ * Initialize App 
+ * */
 app.init = function() {
 	app.setEventListeners();
 	app.getMediaGenres();
 	app.setButtonText();
 }
 
-// DOCUMENT READY
+/**
+ * Document Ready
+ */
 $(() => {
   app.init();
 })

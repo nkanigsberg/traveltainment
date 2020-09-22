@@ -3,7 +3,6 @@ body {
 }
 
 h1 {
-	// font-family: $secondaryFont;
 	font-size: 3.5rem;
 
 	span {
@@ -11,12 +10,10 @@ h1 {
 	}
 }
 
-
 .tagline {
 	font-size: 1.8rem;
 	text-align: center;
 }
-
 
 h2 {
 	font-size: 2rem;
@@ -25,4 +22,15 @@ h2 {
 button {
 	letter-spacing: 0.05em;
 	text-transform: uppercase;
+}
+
+.button{
+	&__primary {
+		font-size: 1.8rem;
+		letter-spacing: 0.05em;
+	}
+}
+
+form {
+	line-height: 1.4;
 }

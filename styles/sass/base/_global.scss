@@ -6,20 +6,16 @@
 
 body {
 	background-color: $primaryBackground;
-
 	overflow-x: hidden;
 }
 
 .hidden {
-	// opacity: 0;
 	display: none;
-	// visibility: hidden;
 }
 
 .attention {
 	color: $accent1 !important;
 }
-
 
 .pageContainer {
 	position: relative;

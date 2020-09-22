@@ -19,21 +19,16 @@ header {
 	justify-content: space-evenly;
 	align-items: center;
 	flex-wrap: wrap;
-
 }
 
 .logo {
 	width: $logoWidth;
 	min-width: $logoMinWidth;
-	// border: 1px solid red;
-	// padding-right: 1rem;
 
 	display: flex;
-	// flex-direction: column;
 	justify-content: center;
 
 	position: relative;
-
 	padding: 5rem 0;
 }
 
@@ -41,52 +36,38 @@ header {
 	position: absolute;
 	top: 12rem;
 	height: 3.8rem;
-	// width: 80%;
 
 	display: flex;
 	justify-content: center;
-	// align-items: center;
 }
 
 h1 {
 	color: #D40242;
+	border-radius: 2rem;
 
 	background-color: $white;
 
 	padding: 1rem 2rem;
-	// margin-right: 4rem;
-
-	border-radius: 2rem;
+	height: 100%;
 
 	display: inline;
 
-	height: 100%;
-
-	overflow: hidden;
-
 	span {
-		// color: #1F5673;
 		color: #032541;
 	}
 
 	a {
 		padding: 1rem 2rem;
 		margin: -1rem -2rem;
+
+		border-radius: 2rem;
 	}
 }
-
-
 
 .form__search {
 	width: $searchFormWidth;
 	width: $searchFormMinWidth;
-
-	// padding-left: 1rem;
-	
-	// prevent resizing when toggling between movie and tv
-	#genres { min-width: 160px; }
-
-}
+	}
 
 .commuteTime {
 	width: $mapButtonWidth;
@@ -106,6 +87,4 @@ h1 {
 	display: flex;
 	justify-content: flex-end;
 	position: absolute;
-	// right: 0;
-
 }

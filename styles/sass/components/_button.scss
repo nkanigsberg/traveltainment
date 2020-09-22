@@ -1,8 +1,7 @@
 .button{
-	&__primary {
-		font-size: 1.8rem;
-		letter-spacing: 0.05em;
+	//generic styles
 
+	&__primary {
 		background-color: $buttonColor;
 		color: $secondaryBackground;
 
@@ -16,7 +15,6 @@
 
 		&:hover,
 		&:focus {
-			// border: 2px solid $buttonHover;
 			background-color: $buttonHover;
 		}
 
@@ -51,8 +49,6 @@
 		position: absolute;
 		top: 1.5rem;
 		right: 1.5rem;
-		// justify-self: flex-end;
-		// align-self: flex-end;
 
 		&:hover,
 		&:focus {
@@ -67,16 +63,31 @@
 		
 		&--add {
 			font-size: 1.4rem;
-			background-color: #032541;
+			background-color: $button--add;
+
+			&:hover,
+			&:focus {
+				background-color: $button--addHover;
+			}
+
+			&:active {
+				background-color: $button--addActive;
+			}
 		}
 
-		&--added {
-			font-size: 1.4rem;
-			background-color: darken(#D40242, 10%);
-		}
-
+		&--added,
 		&--remove {
-			background-color: darken(#D40242, 10%);
+			font-size: 1.4rem;
+			background-color: $button--added;
+
+			&:hover,
+			&:focus {
+				background-color: $button--addedHover;
+			}
+
+			&:active {
+				background-color: $button--addedActive;
+			}
 		}
 	}
 }

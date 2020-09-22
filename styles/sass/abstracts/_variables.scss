@@ -1,5 +1,3 @@
-// variables
-
 // Wrapper width
 $wrapperMaxWidth: 1400px;
 $wrapperWidth: 85%;
@@ -13,35 +11,28 @@ $listBackground: #ebe5e5;
 
 $footerBackground: #272933;
 
-
 // font colours + pseudo states
 $black: #2C2C2C;
 $white: #FAFFFE;
 $grey: grey;
 $accent1: #D40242;
-// $accent2: #063974;
-// $accent3: #0C5F4C;
 
 $shadow: #00000070;
 
-// $buttonColor: #f6b44a;
-// $buttonHover: darken(#f6b44a, 20);
 $buttonColor: #f6b44a;
 $buttonHover: lighten(#f6b44a, 10);
 $buttonActive: darken(#f6b44a, 10);
 
+$button--add: #032541;
+$button--addHover: lighten(#032541, 10);
+$button--addActive: lighten(#032541, 20);
 
-// $floatLabel: #01B4E4;
+$button--added: #D40242;
+$button--addedHover: darken(#D40242, 10);
+$button--addedActive: darken(#D40242, 20);
+
 $floatLabel: #1F5673;
-
 
 // font stacks
 $primaryFont: 'Roboto', sans-serif;
 $secondaryFont: 'Abel', sans-serif;
-
-
-// dimensions
-  
-// testing colours
-$testColor-1: #D40242;
-$testColor-2: #1f5673;

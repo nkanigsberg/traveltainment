@@ -2,16 +2,12 @@
 
   & > *:not(:last-child) { margin-bottom: 1rem; }
   &__media {
-    padding: 1rem 0;
-    // display: flex;
-    // flex-wrap: wrap;
-    // justify-content: space-between;
+		padding: 1rem 0;
+		
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
     gap: 1rem;
     justify-content: center;
-    
-    // &:first-child { margin-right: 1rem; }
     
     .imageContainer {
       position: relative;
@@ -19,14 +15,14 @@
       button {
         position: absolute;
         top: 0;
-        right: 0;
-        // bottom: 0;
-        // left: 0;
-        border-radius: 0;
-        font-size: 2rem;
+				right: 0;
+				
+				border-radius: 0;
+				
+				font-size: 2rem;
+				
         border-bottom-left-radius: 5px;
         border-color: #032541;
-        // border-bottom-color: #032541;
 
         &:hover,
         &:active,
@@ -38,7 +34,9 @@
 
     .mediaResults__moreInfo {
       align-items: flex-end;
-      padding-bottom: 12px;
+			span {
+				font-size: 2rem;
+			}
     }
 
     &__info {
@@ -46,33 +44,9 @@
       font-size: 1.4rem;
       h3 { font-size: 1.6rem}
     }
-
-    
   }
   
   &__runtime {
     font-family: $secondaryFont;
   }
 }
-
-// for devices that use touch input
-// TODO
-// @media(hover: hover) {
-//   .showList {
-//     .imageContainer {
-//       // position: relative;
-
-//       button {
-//         // position: absolute;
-//         background-color: green;
-//         top: 0;
-//         right: 0;
-//         left: initial;
-//         bottom: initial;
-//         border-radius: none;
-//         font-size: 2rem;
-//         border-bottom-left-radius: 5px;
-//       }
-//     }
-//   }
-// }
